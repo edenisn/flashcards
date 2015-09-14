@@ -1,25 +1,21 @@
-<div class="container">
+<h3>Все карточки</h3>
 
-  <h3>Все карточки</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Оригинальное слово</th>
+      <th>Перевод</th>
+      <th>Дата создания карточки</th>
+    </tr>
+  </thead>
 
-  <table class="table table-hover">
-    <thead>
+  <% @cards.each do |card| %>
+    <tbody>
       <tr>
-        <th>Оригинальное слово</th>
-        <th>Перевод</th>
-        <th>Дата создания карточки</th>
+        <td><%= card.original_text %></td>
+        <td><%= card.translated_text %></td>
+        <td><%= card.review_date.strftime("%m/%d/%Y") %></td>
       </tr>
-    </thead>
-
-    <% @cards.each do |card| %>
-      <tbody>
-        <tr>
-          <td><%= card.original_text %></td>
-          <td><%= card.translated_text %></td>
-          <td><%= card.review_date.strftime("%m/%d/%Y") %></td>
-        </tr>
-      </tbody>
-    <% end %>
+    </tbody>
+  <% end %>
 </table>
-
-</div>
