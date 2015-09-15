@@ -1,0 +1,14 @@
+<h3>Карточка #<%= @card.id %></h3>
+<p>
+  <label>Оригинальный текст:</label>
+  <%= @card.original_text %>
+</p>
+<p>
+  <label>Перевод:</label>
+  <%= @card.translated_text %>
+</p>
+<p>
+  <label>Дата создания:</label>
+  <%= @card.review_date.strftime("%d/%m/%Y") %>
+</p>
+<%= link_to 'Назад', cards_path %>
