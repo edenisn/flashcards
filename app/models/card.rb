@@ -1,30 +1,18 @@
-require 'active_support/all'
-
 class Card < ActiveRecord::Base
-  scope :created_before, -> time { where("review_date <= ?", time) }
-  scope :random, -> { order("RANDOM()") }
+  scope :get_random_card, -> time { where("review_date <= ?", time).order("RANDOM()") }
 
-  before_update :add_3_days_to_review_date_after_update
+  before_update :set_default_review_date
 
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
 
-  def self.created_before(time)
-    where("review_date <= ?", time)
-  end
-
-  def self.random
-    order("RANDOM()") # get random row from postgresql
+  def self.get_random_card(time)
+    where("review_date <= ?", time).order("RANDOM()") # get random row from postgresql with date <= DateTime.now
   end
 
   def verify_translate(original, translated)
-    if original.mb_chars == translated.mb_chars
-      add_3_days_to_review_date_after_update
-      true
-    else
-      false
-    end
+    remove_spaces_from_str(original) == remove_spaces_from_str(translated) ? true : false
   end
 
   private
@@ -34,7 +22,11 @@ class Card < ActiveRecord::Base
       end
     end
 
-    def add_3_days_to_review_date_after_update
+    def set_default_review_date
       self.review_date += 3.days
+    end
+
+    def remove_spaces_from_str(str)
+      str.gsub(/\s+/, "").mb_chars.downcase
     end
 end
