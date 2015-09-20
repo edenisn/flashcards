@@ -2,14 +2,9 @@
 <p class="text-info">Перевод:</p>
 <%= @card.translated_text %>
 <p>
-  <%= form_tag reviews_url, input_html: { role: "form", class: "form-" } do %>
-    <div class="form-group">
-      <%= label_tag :review_params_original, "Оригинальный текст:", class: "control-label" %>
-      <%= text_field_tag :review_params_original, params[:review_params_original],
-                         placeholder: "введите оригинальный текст карточки",
-                         class: "form-control" %>
-    </div>
-    <%= hidden_field_tag "review_params_card_id", @card.id %>
-    <%= submit_tag "Проверить", name: nil, class: "btn btn-default" %>
-<% end %>
+  <%= simple_form_for :review, url: reviews_path, method: :post do |f| %>
+    <%= f.input :user_translation, label: "Оригинальный текст:"  %>
+    <%= f.hidden_field :card_id, value: @card.id %>
+    <%= f.button :submit, "Проверить" %>
+  <% end %>
 <p class="text-danger lead"><%= notice %></p>

@@ -4,12 +4,17 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @card = Card.find(params[:review_params_card_id])
+    @card = Card.find(review_params[:card_id])
 
-    if @card.verify_translating(params[:review_params_original])
+    if @card.verify_translating(review_params[:user_translation])
       redirect_to :back, notice: "Правильно"
     else
       redirect_to :back, notice: "Не правильно!"
     end
   end
+
+  private
+    def review_params
+      params.require(:review).permit(:card_id, :user_translation)
+    end
 end
