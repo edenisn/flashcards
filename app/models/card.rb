@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  scope :get_random_card, -> time { where("review_date <= ?", time).order("RANDOM()") }
+  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()").first }
 
   before_update :set_default_review_date
 
@@ -7,12 +7,13 @@ class Card < ActiveRecord::Base
 
   validate :original_text_cannot_be_equal_translated_text
 
-  def self.get_random_card(time)
-    where("review_date <= ?", time).order("RANDOM()") # get random row from postgresql with date <= DateTime.now
-  end
-
-  def verify_translate(original, translated)
-    remove_spaces_from_str(original) == remove_spaces_from_str(translated) ? true : false
+  def verify_translating(original)
+    if remove_spaces_from_str(self.original_text) == remove_spaces_from_str(original)
+      self.update_attribute(:review_date, self.review_date)
+      true
+    else
+      false
+    end
   end
 
   private

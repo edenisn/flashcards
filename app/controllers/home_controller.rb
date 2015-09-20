@@ -1,13 +1,12 @@
 class HomeController < ApplicationController
   def index
-    @card = Card.get_random_card(DateTime.now).first
+    @card = Card.for_review # get random card for review
   end
 
   def examine
     @card = Card.find(params[:card_id])
 
-    if @card.verify_translate(params[:original], @card.original_text)
-      @card.update_attributes(review_date: @card.review_date)
+    if @card.verify_translating(params[:original])
       redirect_to :back, notice: "Правильно"
     else
       redirect_to :back, notice: "Не правильно!"
