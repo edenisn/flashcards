@@ -8,7 +8,7 @@ class Card < ActiveRecord::Base
   validate :original_text_cannot_be_equal_translated_text
 
   def verify_translating(original)
-    if remove_spaces_from_str(self.original_text) == remove_spaces_from_str(original)
+    if transform_string(self.original_text) == transform_string(original)
       self.update(review_date: self.review_date)
       true
     else
@@ -27,7 +27,7 @@ class Card < ActiveRecord::Base
       self.review_date += 3.days
     end
 
-    def remove_spaces_from_str(str)
-      str.squish.mb_chars.downcase
+    def transform_string(str)
+      str.squish.mb_chars.downcase # remove spaces and downcase string (mb_chars - for UTF-8 encoding)
     end
 end

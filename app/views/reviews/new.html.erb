@@ -4,11 +4,12 @@
 <p>
   <%= form_tag reviews_url, input_html: { role: "form", class: "form-" } do %>
     <div class="form-group">
-      <%= label_tag :original, "Оригинальный текст:", class: "control-label" %>
-      <%= text_field_tag :original, params[:original], placeholder: "введите оригинальный текст карточки",
+      <%= label_tag :review_params_original, "Оригинальный текст:", class: "control-label" %>
+      <%= text_field_tag :review_params_original, params[:review_params_original],
+                         placeholder: "введите оригинальный текст карточки",
                          class: "form-control" %>
     </div>
-    <%= hidden_field_tag "card_id", @card.id %>
+    <%= hidden_field_tag "review_params_card_id", @card.id %>
     <%= submit_tag "Проверить", name: nil, class: "btn btn-default" %>
 <% end %>
 <p class="text-danger lead"><%= notice %></p>

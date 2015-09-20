@@ -4,9 +4,9 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @card = Card.find(params[:card_id])
+    @card = Card.find(params[:review_params_card_id])
 
-    if @card.verify_translating(params[:original])
+    if @card.verify_translating(params[:review_params_original])
       redirect_to :back, notice: "Правильно"
     else
       redirect_to :back, notice: "Не правильно!"
