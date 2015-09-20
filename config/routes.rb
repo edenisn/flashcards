@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :cards
-
-  post "examine" => "home#examine"
+  resources :cards, :reviews
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

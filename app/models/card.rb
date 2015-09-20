@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()").first }
+  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
 
   before_update :set_default_review_date
 
@@ -9,7 +9,7 @@ class Card < ActiveRecord::Base
 
   def verify_translating(original)
     if remove_spaces_from_str(self.original_text) == remove_spaces_from_str(original)
-      self.update_attribute(:review_date, self.review_date)
+      self.update(review_date: self.review_date)
       true
     else
       false
@@ -28,6 +28,6 @@ class Card < ActiveRecord::Base
     end
 
     def remove_spaces_from_str(str)
-      str.gsub(/\s+/, "").mb_chars.downcase
+      str.squish.mb_chars.downcase
     end
 end

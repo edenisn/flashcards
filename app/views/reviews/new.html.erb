@@ -1,0 +1,14 @@
+<h3>Карточка #<%= @card.id %></h3>
+<p class="text-info">Перевод:</p>
+<%= @card.translated_text %>
+<p>
+  <%= form_tag reviews_url, input_html: { role: "form", class: "form-" } do %>
+    <div class="form-group">
+      <%= label_tag :original, "Оригинальный текст:", class: "control-label" %>
+      <%= text_field_tag :original, params[:original], placeholder: "введите оригинальный текст карточки",
+                         class: "form-control" %>
+    </div>
+    <%= hidden_field_tag "card_id", @card.id %>
+    <%= submit_tag "Проверить", name: nil, class: "btn btn-default" %>
+<% end %>
+<p class="text-danger lead"><%= notice %></p>
