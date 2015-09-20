@@ -1,15 +1,16 @@
 class Card < ActiveRecord::Base
   scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
 
-  before_update :set_default_review_date
+  before_update :set_default_review_date, on: :create
 
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
 
-  def verify_translating(original)
-    if transform_string(self.original_text) == transform_string(original)
-      self.update(review_date: self.review_date)
+  def verify_translation(user_translation)
+    if transform_string(self.original_text) == transform_string(user_translation)
+      review_date += 3.days
+      self.update(review_date: review_date)
       true
     else
       false
