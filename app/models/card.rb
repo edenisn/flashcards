@@ -9,8 +9,7 @@ class Card < ActiveRecord::Base
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
-      review_date = DateTime.now + 3.days
-      update(review_date: review_date)
+      update(review_date: DateTime.now + 3.days)
       true
     else
       false
@@ -25,7 +24,7 @@ class Card < ActiveRecord::Base
     end
 
     def set_default_review_date
-      self.review_date += 3.days
+      self.review_date = DateTime.now + 3.days
     end
 
     def transform_string(str)
