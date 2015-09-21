@@ -1,12 +1,20 @@
-require 'active_support/all'
-
 class Card < ActiveRecord::Base
+  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
 
-  before_update :add_3_days_to_review_date_after_update
+  before_create :set_default_review_date
 
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
+
+  def verify_translation(user_translation)
+    if transform_string(original_text) == transform_string(user_translation)
+      update(review_date: DateTime.now + 3.days)
+      true
+    else
+      false
+    end
+  end
 
   private
     def original_text_cannot_be_equal_translated_text
@@ -15,7 +23,11 @@ class Card < ActiveRecord::Base
       end
     end
 
-    def add_3_days_to_review_date_after_update
-      self.review_date += 3.days
+    def set_default_review_date
+      self.review_date = DateTime.now + 3.days
+    end
+
+    def transform_string(str)
+      str.squish.mb_chars.downcase # remove spaces and downcase string (mb_chars - for UTF-8 encoding)
     end
 end
