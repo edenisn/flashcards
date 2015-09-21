@@ -8,9 +8,9 @@ class Card < ActiveRecord::Base
   validate :original_text_cannot_be_equal_translated_text
 
   def verify_translation(user_translation)
-    if transform_string(self.original_text) == transform_string(user_translation)
-      self.review_date += 3.days
-      self.update(review_date: review_date)
+    if transform_string(original_text) == transform_string(user_translation)
+      review_date = DateTime.now + 3.days
+      update(review_date: review_date)
       true
     else
       false
