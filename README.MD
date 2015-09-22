@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/edenisn/flashcards.svg)](https://travis-ci.org/edenisn/flashcards)
