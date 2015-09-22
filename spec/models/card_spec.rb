@@ -7,19 +7,19 @@ describe Card do
   context "aliased attributes" do
 
     it "is the correct original_text card" do
-        expect(card.original_text).to eq "Fruit"
+      expect(card.original_text).to eq "Fruit"
     end
 
     it "is the correct translated_text card" do
-        expect(card.translated_text).to eq "Фрукт"
+      expect(card.translated_text).to eq "Фрукт"
     end
 
     it "is not the correct translated_text card" do
-        expect(card.translated_text).to_not eq "Кран"
+      expect(card.translated_text).to_not eq "Кран"
     end
 
     it "is the correct review_date card" do
-        expect(card.review_date).to eq(Date.today + 3.days)
+      expect(card.review_date).to eq(Date.today + 3.days)
     end
 
   end
@@ -55,7 +55,7 @@ describe Card do
 
   end
 
-  context "methods" do
+  context "check translation for review card" do
 
     it "is false if translation is not correct" do
       expect(card.verify_translation("Banana")).to be false

@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
+  scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
 
   before_create :set_default_review_date
 

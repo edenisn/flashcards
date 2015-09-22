@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.1.4p265
+  - 2.2.2
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
+before_script:
+  - cp config/database.yml.example config/database.yml
+  - psql -c 'create database flashcards_db_test' -U user_db_test
