@@ -1,4 +1,6 @@
 class Card < ActiveRecord::Base
+  belongs_to :user
+
   scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
 
   before_create :set_default_review_date
