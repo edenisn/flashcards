@@ -49,7 +49,7 @@ describe Card do
     end
 
     it "is include card that have review_date <= Date.today" do
-      card.update_attributes(review_date: Date.today)
+      card.update(review_date: Date.today)
       expect(Card.for_review).to include(card)
     end
 
