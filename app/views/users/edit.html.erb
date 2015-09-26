@@ -1,0 +1,7 @@
+<h3>Редактирование профиля:</h3>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<%= simple_form_for current_user do |f| %>
+    <%= f.input :email, label: 'Email:' %>
+    <%= f.button :submit, 'Обновить' %>
+<% end %>

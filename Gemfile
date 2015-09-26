@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
+# Use sorcery for authentication users
+gem 'sorcery'
 # Use simple_form instead form_for
 gem 'simple_form'
 # Use SCSS for stylesheets

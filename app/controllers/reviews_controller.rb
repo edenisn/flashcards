@@ -1,10 +1,15 @@
 class ReviewsController < ApplicationController
   def new
-    @card = Card.for_review.first # get random card for review
+    @user = current_user
+    @card = @user.cards.for_review.first # get random card for review
+    unless @card
+      render :new, notice: "Открывайте тренировщик позже"
+    end
   end
 
   def create
-    @card = Card.find(review_params[:card_id])
+    @user = current_user
+    @card = @user.cards.find(review_params[:card_id])
 
     if @card.verify_translation(review_params[:user_translation])
       redirect_to :back, notice: "Правильно"

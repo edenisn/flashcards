@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
+  post 'oauth/callback' => 'oauths#callback'
+  get 'oauth/callback' => 'oauths#callback' # for use with twitter and facebook
+  get 'ouath/:provider' => 'oauths#oauth', :as => :auth_at_provider
+  delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
-  resources :cards
+  get 'logout' => 'sessions#destroy', :as => :logout
+  get 'login' => 'sessions#new', :as => :login
+  get 'signup' => 'users#new', :as => :signup
+
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :reviews
+
+  resources :users
+  resources :cards
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
