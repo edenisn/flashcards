@@ -1,9 +1,6 @@
 class ReviewsController < ApplicationController
   def new
     @card = current_user.cards.for_review.first # get random card for review
-    unless @card
-      render :new, notice: "Открывайте тренировщик позже"
-    end
   end
 
   def create

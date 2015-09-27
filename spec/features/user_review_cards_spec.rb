@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Authorized user' do
+describe 'User' do
 
   let!(:user) { FactoryGirl.create(:user) }
   let!(:card) { user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
@@ -15,7 +15,7 @@ describe 'Authorized user' do
       click_button "Создать/Обновить"
     end
 
-    it "can possibility to review cards" do
+    it "can review cards" do
       visit root_path
       click_link "Перейти на страницу тренировки"
       expect(page).to have_button "Проверить"
@@ -31,7 +31,7 @@ describe 'Authorized user' do
 
   context "have no cards for review" do
 
-    it "can't possibility for review cards" do
+    it "can't review cards" do
       visit root_path
       click_link "Перейти на страницу тренировки"
       expect(page).to_not have_content "Карточка #"

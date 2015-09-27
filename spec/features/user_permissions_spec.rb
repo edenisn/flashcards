@@ -8,11 +8,14 @@ describe "User" do
   context "authorized" do
 
     before(:each) do
+      user = FactoryGirl.create(:user)
+      card = create(:card, user: user, original_text: "city", translated_text: "город")
+
       login("person1@example.com", "password")
+      visit root_path
     end
 
     it "can update card" do
-      visit root_path
       click_link "Все карточки"
       click_link "Редактировать"
       fill_in :card_original_text, with: "qwerty"
@@ -32,8 +35,15 @@ describe "User" do
       fill_in :card_translated_text, with: "Карточка"
       select "September", from: "card_review_date_2i"
       select "1", from: "card_review_date_3i"
+      save_and_open_page
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно создана"
+    end
+
+    it "can't see cards that owned by another user" do
+      click_link "Все карточки"
+      expect(page).not_to have_content "city"
+
     end
 
   end

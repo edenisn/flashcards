@@ -6,3 +6,11 @@
     <%= f.input :email, label: 'Новый email:' %>
     <%= f.button :submit, 'Обновить' %>
 <% end %>
+<p>
+  <% if current_user.has_linked_github? %>
+    <%= link_to 'Выйти из Github аккаунта', delete_oauth_path('github'), method: :delete %> |
+  <% end %>
+  <% if current_user.has_linked_twitter? %>
+    <%= link_to 'Выйти из Twitter аккаунта', delete_oauth_path('twitter'), method: :delete %>
+  <% end %>
+</p>
