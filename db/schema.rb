@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150924101037) do
 
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
-  create_table "users", force: :cascade do |t|
+  create_table "registrations", force: :cascade do |t|
     t.string   "email",            null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
@@ -47,5 +47,5 @@ ActiveRecord::Schema.define(version: 20150924101037) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
-  add_foreign_key "cards", "users"
+  add_foreign_key "cards", "registrations"
 end

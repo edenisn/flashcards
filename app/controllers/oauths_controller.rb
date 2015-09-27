@@ -1,8 +1,8 @@
 class OauthsController < ApplicationController
-  skip_before_filter :require_login
-  before_filter :require_login, only: :destroy
+  skip_before_action :require_login
+  before_action :require_login, only: :destroy
 
-def oauth
+  def oauth
     login_at(auth_params[:provider])
   end
 
@@ -41,7 +41,7 @@ def oauth
     def link_account(provider)
       if @user = add_provider_to_user(provider)
         # If you want to store the user's Github login, which is required in order to interact with their Github account, uncomment the next line.
-        # You will also need to add a 'github_login' string column to the users table.
+        # You will also need to add a 'github_login' string column to the registrations table.
         #
         # @user.update_attribute(:github_login, @user_hash[:user_info]['login'])
         flash[:notice] = "Вы успешно вошли в Ваш #{provider.titleize} аккаунт"

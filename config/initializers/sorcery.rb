@@ -7,7 +7,7 @@ Rails.application.config.sorcery.submodules = [:external]
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
   # -- core --
-  # What controller action to call for non-authenticated users. You can also
+  # What controller action to call for non-authenticated registrations. You can also
   # override the 'not_authenticated' method of course.
   # Default: `:not_authenticated`
   #
@@ -78,15 +78,15 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.external_providers = [:twitter, :github]
 
-  config.twitter.key = "#{Rails.application.secrets.sorcery_twitter_key}"
-  config.twitter.secret = "#{Rails.application.secrets.sorcery_twitter_secret}"
-  config.twitter.callback_url = "#{Rails.application.secrets.sorcery_twitter_callback_url}"
-  config.twitter.user_info_mapping = { :username => "screen_name" }
+  config.twitter.key = Rails.application.secrets.sorcery_twitter_key
+  config.twitter.secret = Rails.application.secrets.sorcery_twitter_secret
+  config.twitter.callback_url = Rails.application.secrets.sorcery_twitter_callback_url
+  config.twitter.user_info_mapping = { username: "screen_name" }
 
-  config.github.key = "#{Rails.application.secrets.sorcery_github_key}"
-  config.github.secret = "#{Rails.application.secrets.sorcery_github_secret}"
-  config.github.callback_url = "#{Rails.application.secrets.sorcery_github_callback_url}"
-  config.github.user_info_mapping = { :email => "name" }
+  config.github.key = Rails.application.secrets.sorcery_github_key
+  config.github.secret = Rails.application.secrets.sorcery_github_secret
+  config.github.callback_url = Rails.application.secrets.sorcery_github_callback_url
+  config.github.user_info_mapping = { email: "email" }
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -108,7 +108,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   #
   # For information about XING API:
-  # - user info fields go to https://dev.xing.com/docs/get/users/me
+  # - user info fields go to https://dev.xing.com/docs/get/registrations/me
   #
   # config.xing.key = ""
   # config.xing.secret = ""
@@ -232,7 +232,7 @@ Rails.application.config.sorcery.configure do |config|
 
 
     # encryption key used to encrypt reversible encryptions such as AES256.
-    # WARNING: If used for users' passwords, changing this key will leave passwords undecryptable!
+    # WARNING: If used for registrations' passwords, changing this key will leave passwords undecryptable!
     # Default: `nil`
     #
     # user.encryption_key =
@@ -314,7 +314,7 @@ Rails.application.config.sorcery.configure do |config|
     # user.activation_success_email_method_name =
 
 
-    # do you want to prevent or allow users that did not activate by email to login?
+    # do you want to prevent or allow registrations that did not activate by email to login?
     # Default: `true`
     #
     # user.prevent_non_active_users_to_login =

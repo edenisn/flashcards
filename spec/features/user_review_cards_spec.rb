@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Authorized user' do
 
-  @user = FactoryGirl.create(:user)
-  @card = @user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today)
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:card) { user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
 
   context "have cards for review" do
 
@@ -11,7 +11,7 @@ describe 'Authorized user' do
       login("person1@example.com", "password")
       click_link "Все карточки"
       click_link "Редактировать"
-      select "2013", :from => "card_review_date_1i"
+      select "2013", from: "card_review_date_1i"
       click_button "Создать/Обновить"
     end
 

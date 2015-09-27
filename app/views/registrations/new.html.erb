@@ -1,7 +1,7 @@
 <h3>Регистрация:</h3>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-<%= simple_form_for @user do |f| %>
+<%= simple_form_for :registration, url: registrations_path do |f| %>
     <%= f.input :email, label: 'Email:' %>
     <%= f.input :password, label: 'Пароль:' %>
     <%= f.input :password_confirmation, label: 'Повторите пароль:' %>

@@ -14,7 +14,7 @@
     <div class="user nav">
       <% if current_user %>
         Вы вошли как <%= current_user.email %> |
-        <%= link_to "Редактировать профиль", edit_user_path(current_user.id) %> |
+        <%= link_to "Редактировать профиль", edit_profile_path(current_user.id) %> |
         <%= link_to "Выйти", logout_path %>
       <% else %>
         <%= link_to "Регистрация", signup_path %> |

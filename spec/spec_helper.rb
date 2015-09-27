@@ -11,7 +11,7 @@
 # that actually need it.
 #
 # The `.rspec` file also contains a few flags that are not defaults but that
-# users commonly want.
+# registrations commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -25,7 +25,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
-  # Many RSpec users commonly either run the entire suite or an individual
+  # Many RSpec registrations commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
   # individual spec file.
   if config.files_to_run.one?

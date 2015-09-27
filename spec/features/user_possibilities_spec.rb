@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "User" do
 
-  @user = FactoryGirl.create(:user)
-  @card = @user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today)
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:card) { user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
 
   context "authorized" do
 
@@ -11,12 +11,12 @@ describe "User" do
       login("person1@example.com", "password")
     end
 
-    it "can possibility to update card" do
+    it "can update card" do
       visit root_path
       click_link "Все карточки"
       click_link "Редактировать"
       fill_in :card_original_text, with: "qwerty"
-      select "2013", :from => "card_review_date_1i"
+      select "2013", from: "card_review_date_1i"
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно обновлена"
     end
@@ -26,12 +26,12 @@ describe "User" do
       expect(page).to have_content "Оригинальное слово"
     end
 
-    it "can possibility to add card" do
+    it "can add card" do
       click_link "Добавить карточку"
       fill_in :card_original_text, with: "Card"
       fill_in :card_translated_text, with: "Карточка"
-      select "September", :from => "card_review_date_2i"
-      select "1", :from => "card_review_date_3i"
+      select "September", from: "card_review_date_2i"
+      select "1", from: "card_review_date_3i"
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно создана"
     end
@@ -50,7 +50,7 @@ describe "User" do
       expect(page).to have_content "Необходима регистрация"
     end
 
-    it "can't possibility to add card" do
+    it "can't add card" do
       click_link "Добавить карточку"
       expect(page).to have_content "Необходима регистрация"
     end
