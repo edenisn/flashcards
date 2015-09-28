@@ -3,8 +3,8 @@
 <p id="alert"><%= alert %></p>
 <p>Ваше текущий email: <%= current_user.email %></p>
 <%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
-    <%= f.input :email, label: 'Новый email:' %>
-    <%= f.button :submit, 'Обновить' %>
+  <%= f.input :email, label: 'Новый email:' %>
+  <%= f.button :submit, 'Обновить' %>
 <% end %>
 <p>
   <% if current_user.has_linked_github? %>
