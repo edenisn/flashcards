@@ -12,7 +12,9 @@ gem 'simple_form'
 # Use paperclip for easy file attachment management
 gem "paperclip", "~> 4.3"
 # Use for uploading files to AWS S3
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
+#Use for Simple Rails app configuration
+gem 'figaro'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
