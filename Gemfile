@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
+# Use sorcery for authentication registrations
+gem 'sorcery'
 # Use simple_form instead form_for
 gem 'simple_form'
 # Use SCSS for stylesheets
@@ -51,5 +53,6 @@ group :test do
   gem 'rspec-rails', '~>3.0.0'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'database_cleaner'
 end
 

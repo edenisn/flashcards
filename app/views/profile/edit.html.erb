@@ -1,0 +1,16 @@
+<h3>Редактирование профиля:</h3>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<p>Ваше текущий email: <%= current_user.email %></p>
+<%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
+    <%= f.input :email, label: 'Новый email:' %>
+    <%= f.button :submit, 'Обновить' %>
+<% end %>
+<p>
+  <% if current_user.has_linked_github? %>
+    <%= link_to 'Выйти из Github аккаунта', delete_oauth_path('github'), method: :delete %> |
+  <% end %>
+  <% if current_user.has_linked_twitter? %>
+    <%= link_to 'Выйти из Twitter аккаунта', delete_oauth_path('twitter'), method: :delete %>
+  <% end %>
+</p>

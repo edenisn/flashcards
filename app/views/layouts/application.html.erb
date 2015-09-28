@@ -11,12 +11,33 @@
 <header class="navbar navbar-default">
   <div class="container">
     <h2>Флэшкарточкер</h2>
+    <div class="user nav">
+      <% if current_user %>
+        Вы вошли как <%= current_user.email %> |
+        <%= link_to "Редактировать профиль", edit_profile_path(current_user.id) %> |
+        <%= link_to "Выйти", logout_path %>
+      <% else %>
+        <%= link_to "Регистрация", signup_path %> |
+        <%= link_to "Войти", login_path %>
+      <% end %>
+    </div>
+    <div style="text-align: left;">
+      <% if logged_in? %>
+        <%= link_to 'Войти в Github аккаунт', auth_at_provider_path(provider: :github) %> |
+        <%= link_to 'Войти в Twitter аккаунт', auth_at_provider_path(provider: :twitter) %>
+      <% else %>
+          <%= link_to 'Войти в Github', auth_at_provider_path(provider: :github) %> |
+          <%= link_to 'Войти в Twitter', auth_at_provider_path(provider: :twitter) %>
+      <% end %>
+    </div>
     <nav>
       <ul class="nav navbar-nav pull-right">
         <li><%= link_to "Все карточки", cards_path %></li>
         <li><%= link_to "Добавить карточку", new_card_path %></li>
       </ul>
     </nav>
+    <p id="alert"><%= alert %></p>
+    <p id="notice"><%= notice %></p>
   </div>
 </header>
 
