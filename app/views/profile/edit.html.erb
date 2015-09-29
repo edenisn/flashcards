@@ -1,16 +1,31 @@
 <h3>Редактирование профиля:</h3>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-<p>Ваше текущий email: <%= current_user.email %></p>
-<%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
+<%= simple_form_for :profile, url: profile_path(@user), method: :patch do |f| %>
+
+  <% if @user.errors.any? %>
+      <div class="error_notification">
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= f.error_notification %>
+  <p class="text-info">Ваш текущий email <%= @user.email %></p>
   <%= f.input :email, label: 'Новый email:' %>
+  <p class="text-info">Для смены пароля ведите Ваш новый пароль</p>
+  <%= f.input :password, label: 'Новый пароль:' %>
+  <%= f.input :password_confirmation, label: 'Повторите ввод нового пароля:' %>
   <%= f.button :submit, 'Обновить' %>
 <% end %>
 <p>
-  <% if current_user.has_linked_github? %>
+  <% if @user.has_linked_github? %>
     <%= link_to 'Выйти из Github аккаунта', delete_oauth_path('github'), method: :delete %> |
   <% end %>
-  <% if current_user.has_linked_twitter? %>
+  <% if @user.has_linked_twitter? %>
     <%= link_to 'Выйти из Twitter аккаунта', delete_oauth_path('twitter'), method: :delete %>
   <% end %>
 </p>
