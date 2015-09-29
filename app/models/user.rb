@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: { message: 'Такой email уже существует' },
             presence: { message: "Поле не может быть пустым" },
-            :format => { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
+            format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
                          message: 'Введите правильный формат email: username@host.com' }
 
   validates :password, length: { minimum: 6, message: "Длина пароля должна быть не меньше 6 символов" }

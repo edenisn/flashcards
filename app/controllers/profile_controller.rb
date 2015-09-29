@@ -1,11 +1,9 @@
 class ProfileController < ApplicationController
-  before_action :find_user, only: [:edit, :update]
-
   def edit
   end
 
   def update
-    if @user.update(profile_params)
+    if current_user.update(profile_params)
       redirect_to root_path, notice: "Профиль пользователя успешно обновлен"
     else
       flash.now.alert = "Сбой при обновлении профиля пользователя"
@@ -16,9 +14,5 @@ class ProfileController < ApplicationController
   private
     def profile_params
       params.require(:profile).permit(:email, :password, :password_confirmation)
-    end
-
-    def find_user
-      @user = current_user
     end
 end
