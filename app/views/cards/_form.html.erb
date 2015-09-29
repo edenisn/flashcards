@@ -3,5 +3,6 @@
   <%= f.input :translated_text, label: 'Перевод' %>
   <%= f.input :image, as: :file, label: 'Картинка для карточки' %>
   <%= f.input :review_date, as: :date, label: 'Дата создания' %>
+  <%= f.association :pack, label: 'Выбрать колоду' %>
   <%= f.button :submit, 'Создать/Обновить' %>
 <% end %>

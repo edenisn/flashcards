@@ -1,0 +1,5 @@
+<%= simple_form_for pack do |f| %>
+    <%= f.input :name, label: 'Имя карточки' %>
+    <%= f.input :current, as: :select, label: 'Сделать текущей?' %>
+    <%= f.button :submit, 'Создать/Обновить' %>
+<% end %>

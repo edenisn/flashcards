@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :user
+  belongs_to :pack
 
   scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
 

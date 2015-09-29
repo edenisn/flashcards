@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928172306) do
+ActiveRecord::Schema.define(version: 20150929190117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,9 +37,18 @@ ActiveRecord::Schema.define(version: 20150928172306) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "pack_id",            null: false
   end
 
+  add_index "cards", ["pack_id"], name: "index_cards_on_pack_id", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
+
+  create_table "packs", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "current",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",            null: false
@@ -51,5 +60,6 @@ ActiveRecord::Schema.define(version: 20150928172306) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "cards", "packs"
   add_foreign_key "cards", "users"
 end
