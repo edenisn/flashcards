@@ -1,10 +1,25 @@
 <h3>Редактирование профиля:</h3>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-<p>Ваше текущий email: <%= current_user.email %></p>
 <%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
-    <%= f.input :email, label: 'Новый email:' %>
-    <%= f.button :submit, 'Обновить' %>
+
+  <% if current_user.errors.any? %>
+    <div class="error_notification">
+      <ul>
+        <% current_user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.error_notification %>
+  <p class="text-info">Ваш текущий email <%= current_user.email %></p>
+  <%= f.input :email, label: 'Новый email:' %>
+  <p class="text-info">Для смены пароля ведите Ваш новый пароль</p>
+  <%= f.input :password, label: 'Новый пароль:' %>
+  <%= f.input :password_confirmation, label: 'Повторите ввод нового пароля:' %>
+  <%= f.button :submit, 'Обновить' %>
 <% end %>
 <p>
   <% if current_user.has_linked_github? %>

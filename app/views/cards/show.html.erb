@@ -8,7 +8,12 @@
   <%= @card.translated_text %>
 </p>
 <p>
+  <label>Картинка для карточки:</label>
+  <%= image_tag @card.image(:large) %>
+</p>
+<p>
   <label>Дата создания:</label>
   <%= @card.review_date.strftime("%d/%m/%Y") %>
 </p>
+
 <%= link_to 'Назад', cards_path %>

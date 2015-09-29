@@ -78,14 +78,14 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.external_providers = [:twitter, :github]
 
-  config.twitter.key = Rails.application.secrets.sorcery_twitter_key
-  config.twitter.secret = Rails.application.secrets.sorcery_twitter_secret
-  config.twitter.callback_url = Rails.application.secrets.sorcery_twitter_callback_url
+  config.twitter.key = ENV["SORCERY_TWITTER_KEY"]
+  config.twitter.secret = ENV["SORCERY_TWITTER_SECRET"]
+  config.twitter.callback_url = ENV["SORCERY_TWITTER_CALLBACK_URL"]
   config.twitter.user_info_mapping = { username: "screen_name" }
 
-  config.github.key = Rails.application.secrets.sorcery_github_key
-  config.github.secret = Rails.application.secrets.sorcery_github_secret
-  config.github.callback_url = Rails.application.secrets.sorcery_github_callback_url
+  config.github.key = ENV["SORCERY_GITHUB_KEY"]
+  config.github.secret = ENV["SORCERY_GITHUB_SECRET"]
+  config.github.callback_url = ENV["SORCERY_GITHUB_CALLBACK_URL"]
   config.github.user_info_mapping = { email: "email" }
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'

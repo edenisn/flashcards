@@ -3,11 +3,17 @@ class Card < ActiveRecord::Base
 
   scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
 
+  has_attached_file :image, styles: { thumb: "100x100>", large: "360x360#" }
+
   before_create :set_default_review_date
 
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
+
+  validates_attachment :image,
+    content_type: { content_type: ["image/jpeg", "image/png"] },
+    size: { in: 0..5.megabytes }
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
