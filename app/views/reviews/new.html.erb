@@ -6,9 +6,10 @@
   <%= @card.translated_text %>
   <%= simple_form_for :review, url: reviews_path, method: :post do |f| %>
     <%= f.input :user_translation, label: "Оригинальный текст:"  %>
-    <%= image_tag @card.image(:large), label: "Картинка для карточки" %>
     <%= f.hidden_field :card_id, value: @card.id %>
     <%= f.button :submit, "Проверить" %>
   <% end %>
+  <br />
+    <p class="text-danger lead"><%= notice %></p>
+  <%= image_tag @card.image.url(:large) %>
 <% end %>
-<p class="text-danger lead"><%= notice %></p>
