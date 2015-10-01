@@ -29,6 +29,7 @@ class CardsController < ApplicationController
   end
 
   def show
+    @pack = Pack.find(@card.pack_id)
   end
 
   def edit

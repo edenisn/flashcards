@@ -13,6 +13,15 @@ describe Pack do
       visit root_path
     end
 
+    it "can't update current(true) pack if db already have current(true) pack" do
+      click_link "Все колоды"
+      click_link "Редактировать"
+      fill_in :pack_name, with: "123"
+      select "Yes", from: "pack_current"
+      click_button "Создать/Обновить"
+      expect(page).to have_content "Обновление колоды невозможно. Уже есть текущая колода!"
+    end
+
     it "can create pack" do
       click_link "Добавить колоду"
       fill_in :pack_name, with: "333"
@@ -20,7 +29,7 @@ describe Pack do
       expect(page).to have_content "Колода успешно создана"
     end
 
-    it "can't create pack if db already have current(true) pack" do
+    it "can't create current(true) pack if db already have current(true) pack" do
       click_link "Добавить колоду"
       fill_in :pack_name, with: "123"
       select "Yes", from: "pack_current"

@@ -42,7 +42,7 @@ describe "User" do
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно создана"
     end
-    
+
     it "can't see cards that owned by another user" do
       click_link "Все карточки"
       expect(page).not_to have_content "city"

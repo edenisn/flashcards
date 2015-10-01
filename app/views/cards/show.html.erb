@@ -15,4 +15,8 @@
   <label>Дата создания:</label>
   <%= @card.review_date.strftime("%d/%m/%Y") %>
 </p>
+<p>
+  <label>Имя колоды:</label>
+  <%= @pack.name %>
+</p>
 <%= link_to 'Назад', cards_path %>

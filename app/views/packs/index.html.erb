@@ -7,7 +7,6 @@
     <th>Является текущей?</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
   </thead>
 
@@ -16,7 +15,6 @@
       <tr>
         <td><%= pack.name %></td>
         <td><%= pack.current %></td>
-        <td><%= link_to 'Добавить карточку', new_card_path %></td>
         <td><%= link_to 'Редактировать', edit_pack_path(pack) %></td>
         <td><%= link_to 'Удалить', pack_path(pack),
                         method: :delete,
