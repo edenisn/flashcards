@@ -3,8 +3,6 @@ require 'rails_helper'
 describe "User" do
 
   let!(:user) { FactoryGirl.create(:user) }
-  #let!(:pack) { user.packs.create(name: "pack1") }
-  #let!(:card) { user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
 
   context "authorized" do
 
@@ -19,7 +17,6 @@ describe "User" do
     it "can update card" do
       click_link "Все карточки"
       click_link "Редактировать"
-      save_and_open_page
       fill_in :card_original_text, with: "qwerty"
       select "2013", from: "card_review_date_1i"
       select "1", from: "card_pack_id"
