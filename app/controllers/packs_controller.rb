@@ -10,8 +10,8 @@ class PacksController < ApplicationController
   end
 
   def create
-    if current_user.packs.current_and_true && pack_params[:current] == "true"
-      flash[:notice] = "Извините, но уже есть текущая колода"
+    if pack_current_and_params_true
+      flash[:notice] = "Создание колоды невозможно. Уже есть текущая колода!"
       redirect_to packs_path
     else
       @pack = current_user.packs.new(pack_params)
@@ -25,8 +25,8 @@ class PacksController < ApplicationController
   end
 
   def update
-    if current_user.packs.current_and_true && pack_params[:current] == "true"
-      flash[:notice] = "Извините, но уже есть текущая колода"
+    if pack_current_and_params_true
+      flash[:notice] = "Обновление колоды невозможно. Уже есть текущая колода!"
       redirect_to packs_path
     else
       if @pack.update(pack_params)
@@ -56,5 +56,9 @@ class PacksController < ApplicationController
 
     def find_pack
       @pack = current_user.packs.find(params[:id])
+    end
+
+    def pack_current_and_params_true
+      current_user.packs.current_and_true.first && pack_params[:current] == "true"
     end
 end

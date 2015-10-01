@@ -6,11 +6,12 @@ class CardsController < ApplicationController
   end
 
   def new
-    @card = current_user.cards.new
+    @card = Card.new
   end
 
   def create
-    @card = current_user.cards.new(card_params)
+    @pack = current_user.packs.find(card_params[:pack_id])
+    @card = @pack.cards.new(card_params)
 
     if @card.save
       redirect_to @card, notice: "Карточка успешно создана"
@@ -45,6 +46,6 @@ class CardsController < ApplicationController
     end
 
     def find_card
-      @card = current_user.cards.find(params[:id])
+      @card = Card.find(params[:id])
     end
 end

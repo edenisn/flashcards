@@ -1,5 +1,4 @@
 class Card < ActiveRecord::Base
-  belongs_to :user
   belongs_to :pack
 
   scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
@@ -8,6 +7,7 @@ class Card < ActiveRecord::Base
 
   before_create :set_default_review_date
 
+  validates :pack_id, presence: { message: "Необходимо выбрать колоду" }
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
