@@ -11,7 +11,7 @@ describe 'User' do
       card = create(:card, pack: pack, original_text: "test", translated_text: "тест", review_date: Date.today)
 
       login("person1@example.com", "password")
-      set_current_pack("person1@example.com", "password", "password", pack: pack.id)
+      set_current_pack("person1@example.com", "password", "password")
 
       click_link "Все карточки"
       click_link "Редактировать"

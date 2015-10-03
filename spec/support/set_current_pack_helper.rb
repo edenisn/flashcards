@@ -1,4 +1,4 @@
-def set_current_pack(email, password, password_confirmation, current_pack_id)
+def set_current_pack(email, password, password_confirmation)
   visit root_path
   click_link "Редактировать профиль"
   fill_in :profile_email, with: email
