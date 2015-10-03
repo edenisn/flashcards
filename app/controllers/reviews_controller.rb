@@ -1,10 +1,6 @@
 class ReviewsController < ApplicationController
   def new
-    if @current_pack = current_user.current_pack # user have current pack
-      @card = @current_pack.cards.for_review.first # get random card for review from current pack
-    end
-
-    @card = current_user.cards.for_review.first
+    @card = current_user.get_review_cards.first
   end
 
   def create
