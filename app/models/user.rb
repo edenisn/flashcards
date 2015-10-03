@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
 
   def get_review_cards
-    if self.current_pack
-      self.current_pack.cards.for_review
+    if current_pack
+      current_pack.cards.for_review
     else
-      self.cards.for_review
+      cards.for_review
     end
   end
 
