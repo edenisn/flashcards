@@ -10,8 +10,6 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authentications
 
-  scope :current_pack, -> { find(current_pack_id) }
-
   validates :email, uniqueness: { message: 'Такой email уже существует' },
             presence: { message: "Поле не может быть пустым" },
             format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,

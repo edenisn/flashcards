@@ -7,13 +7,19 @@ class CardsController < ApplicationController
 
   def new
     @card = Card.new
+    @new_pack = Pack.new
   end
 
   def create
     @pack = current_user.packs.find(card_params[:pack_id])
     @card = @pack.cards.new(card_params)
+    @new_pack = current_user.packs.new(name: params.require(:new_pack_name))
 
-    if @card.save
+    if [@card, @new_pack].all?(&:valid?)
+      Card.transaction do
+        @card.save
+        @new_pack.save
+      end
       redirect_to @card, notice: "Карточка успешно создана"
     else
       render 'new'
