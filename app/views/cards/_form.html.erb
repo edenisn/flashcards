@@ -5,6 +5,6 @@
   <%= f.input :review_date, as: :date, label: 'Дата создания' %>
   <%= label_tag 'Имя новой колоды:' %>
   <%= text_field_tag :new_pack_name %>
-  <%= f.association :pack, label: 'Выбрать колоду' %>
+  <%= f.association :pack, label: 'Выбрать колоду', selected: 1 %>
   <%= f.button :submit, 'Создать/Обновить' %>
 <% end %>
