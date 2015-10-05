@@ -12,9 +12,8 @@ class CardsController < ApplicationController
   def create
     @pack = current_user.packs.find(card_params[:pack_id])
     @card = @pack.cards.new(card_params)
-    @new_pack = current_user.packs.new(name: params[:new_pack_name])
 
-    if @new_pack && @new_pack.valid?
+    if @new_pack = @card.create_for_pack(current_user, params[:new_pack_name])
       Card.transaction do
         @card.save
         @new_pack.save

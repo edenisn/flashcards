@@ -16,6 +16,10 @@ class Card < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
 
+  def create_for_pack(user, pack_name)
+    user.packs.new(name: pack_name)
+  end
+
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
       update(review_date: Date.today + 3.days)
