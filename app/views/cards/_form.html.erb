@@ -4,7 +4,7 @@
   <%= f.input :image, as: :file, label: 'Картинка для карточки' %>
   <%= f.input :review_date, as: :date, label: 'Дата создания' %>
   <%= label_tag 'Имя новой колоды:' %>
-  <%= text_field_tag :new_pack_name %>
-  <%= f.association :pack, label: 'Выбрать колоду', selected: 1 %>
+  <%= text_field_tag 'card[new_pack_name]' %>
+  <%= f.association :pack, label: 'Выбрать колоду' %>
   <%= f.button :submit, 'Создать/Обновить' %>
 <% end %>

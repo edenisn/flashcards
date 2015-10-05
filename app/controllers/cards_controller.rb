@@ -10,16 +10,9 @@ class CardsController < ApplicationController
   end
 
   def create
-    @pack = current_user.packs.find(card_params[:pack_id])
-    @card = @pack.cards.new(card_params)
+    @card = Card.create_from_pack(current_user, card_params)
 
-    if @new_pack = @card.create_for_pack(current_user, params[:new_pack_name])
-      Card.transaction do
-        @card.save
-        @new_pack.save
-      end
-      redirect_to @card, notice: "Карточка и колода успешно созданы"
-    elsif @card.save
+    if @card.save
       redirect_to @card, notice: "Карточка успешно создана"
     else
       render 'new'
@@ -48,7 +41,8 @@ class CardsController < ApplicationController
 
   private
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :pack_id)
+      params.require(:card).permit(:original_text, :translated_text, :review_date,
+                                   :image, :pack_id, :new_pack_name)
     end
 
     def find_card

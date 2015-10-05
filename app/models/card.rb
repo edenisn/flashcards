@@ -16,8 +16,11 @@ class Card < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
 
-  def create_for_pack(user, pack_name)
-    user.packs.new(name: pack_name)
+  def self.create_from_pack(user, card_params)
+    pack_name = card_params.delete(:new_pack_name)
+    new_pack = user.packs.find_or_create_by(name: pack_name)
+    card = new_pack.cards.new(card_params.merge(pack_id: new_pack.id))
+    card
   end
 
   def verify_translation(user_translation)
