@@ -10,9 +10,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.create_from_pack(current_user, card_params)
-
-    if @card.save
+    if @card = Card.create_from_pack(current_user, card_params)
       redirect_to @card, notice: "Карточка успешно создана"
     else
       render 'new'

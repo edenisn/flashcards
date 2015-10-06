@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates :password, confirmation: { message: "Пароли не совпадают" }
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
 
-  def get_review_cards
+  def review_cards
     if current_pack
       current_pack.cards.for_review
     else

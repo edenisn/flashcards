@@ -10,20 +10,23 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
-      redirect_to root_path, notice: "Вошли в #{provider.titleize}!"
+      redirect_to root_path, notice: "Вы вошли в #{provider.titleize}"
     else
-      if logged_in?
-        link_account(provider)
-        redirect_to root_path
-      else
-        redirect_to login_path, notice: "Вы сначала должны войти на сайт, а потом уже кликать по ссылке 'Войти в #{provider.titleize}!'"
+      begin
+        @user = create_from(provider)
+
+        reset_session # protect from session fixation attack
+        auto_login(@user)
+        redirect_to root_path, notice: "Вы вошли в #{provider.titleize}"
+      rescue
+        redirect_to root_path, notice: "Ошибка при входе в Ваш #{provider.titleize} аккаунт"
       end
     end
 
   end
 
   def destroy
-    provider = params[:provider]
+    provider = auth_params[:provider]
 
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
@@ -38,18 +41,6 @@ class OauthsController < ApplicationController
 
 
   private
-    def link_account(provider)
-      if @user = add_provider_to_user(provider)
-        # If you want to store the user's Github login, which is required in order to interact with their Github account, uncomment the next line.
-        # You will also need to add a 'github_login' string column to the registrations table.
-        #
-        # @user.update_attribute(:github_login, @user_hash[:user_info]['login'])
-        flash[:notice] = "Вы успешно вошли в Ваш #{provider.titleize} аккаунт"
-      else
-        flash[:alert] = "Возникли проблемы при входе в Ваш #{provider.titleize} аккаунт"
-      end
-    end
-
     def auth_params
       params.permit(:code, :provider)
     end

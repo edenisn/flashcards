@@ -26,7 +26,15 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
-
+  #config.paperclip_defaults = {
+  #    storage: :s3,
+  #    s3_host_name: 's3-us-west-2.amazonaws.com',
+  #    s3_credentials: {
+  #        bucket: ENV['AWS_BUCKET_NAME'],
+  #        access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+  #        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+  #    }
+  #}
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

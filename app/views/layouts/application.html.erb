@@ -22,13 +22,8 @@
       <% end %>
     </div>
     <div style="text-align: left;">
-      <% if logged_in? %>
-        <%= link_to 'Войти в Github аккаунт', auth_at_provider_path(provider: :github) %> |
-        <%= link_to 'Войти в Twitter аккаунт', auth_at_provider_path(provider: :twitter) %>
-      <% else %>
-          <%= link_to 'Войти в Github', auth_at_provider_path(provider: :github) %> |
-          <%= link_to 'Войти в Twitter', auth_at_provider_path(provider: :twitter) %>
-      <% end %>
+      <%= link_to 'Войти в Github аккаунт', auth_at_provider_path(provider: :github) %> |
+      <%= link_to 'Войти в Twitter аккаунт', auth_at_provider_path(provider: :twitter) %>
     </div>
     <nav>
       <ul class="nav navbar-nav pull-right">
