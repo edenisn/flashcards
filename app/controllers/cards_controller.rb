@@ -6,11 +6,11 @@ class CardsController < ApplicationController
   end
 
   def new
-    @card = current_user.cards.new
+    @card = Card.new
   end
 
   def create
-    @card = current_user.cards.new(card_params)
+    @card = Card.create_from_pack(current_user, card_params)
 
     if @card.save
       redirect_to @card, notice: "Карточка успешно создана"
@@ -41,10 +41,11 @@ class CardsController < ApplicationController
 
   private
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :image)
+      params.require(:card).permit(:original_text, :translated_text, :review_date,
+                                   :image, :pack_id, :new_pack_name)
     end
 
     def find_card
-      @card = current_user.cards.find(params[:id])
+      @card = Card.find(params[:id])
     end
 end

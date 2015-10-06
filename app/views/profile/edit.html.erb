@@ -1,6 +1,6 @@
 <h3>Редактирование профиля:</h3>
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
+<p class="text-danger"><%= notice %></p>
+<p class="text-danger"><%= alert %></p>
 <%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
 
   <% if current_user.errors.any? %>
@@ -19,6 +19,7 @@
   <p class="text-info">Для смены пароля ведите Ваш новый пароль</p>
   <%= f.input :password, label: 'Новый пароль:' %>
   <%= f.input :password_confirmation, label: 'Повторите ввод нового пароля:' %>
+  <%= f.input :current_pack_id, collection: current_user.packs.all, label: 'Выбрать текущую колоду' %>
   <%= f.button :submit, 'Обновить' %>
 <% end %>
 <p>

@@ -1,0 +1,26 @@
+<h3>Все колоды</h3>
+<p id="notice"><%= notice %></p>
+<p>
+  <%= link_to 'Выбрать текущую колоду', edit_profile_path(current_user) %>
+</p>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Имя колоды</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <% @packs.each do |pack| %>
+    <tbody>
+    <tr>
+      <td><%= pack.name %></td>
+      <td><%= link_to 'Редактировать', edit_pack_path(pack) %></td>
+      <td><%= link_to 'Удалить', pack_path(pack),
+                      method: :delete,
+                      data: { confirm: 'Вы уверены?' } %></td>
+    </tr>
+    </tbody>
+  <% end %>
+</table>

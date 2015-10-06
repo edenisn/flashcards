@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
     config.authentication_class = Authentication
   end
 
-  has_many :cards, dependent: :destroy
+  has_many :packs, dependent: :destroy
+  belongs_to :current_pack, class_name: "Pack"
+  has_many :cards, through: :packs
   has_many :authentications, dependent: :destroy
 
   accepts_nested_attributes_for :authentications
@@ -16,6 +18,14 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, message: "Длина пароля должна быть не меньше 6 символов" }
   validates :password, confirmation: { message: "Пароли не совпадают" }
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
+
+  def get_review_cards
+    if current_pack
+      current_pack.cards.for_review
+    else
+      cards.for_review
+    end
+  end
 
   def has_linked_github?
     authentications.where(provider: 'github').present?

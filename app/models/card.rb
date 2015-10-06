@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :pack
 
   scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
 
@@ -7,6 +7,7 @@ class Card < ActiveRecord::Base
 
   before_create :set_default_review_date
 
+  validates :pack_id, presence: { message: "Необходимо выбрать колоду" }
   validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
 
   validate :original_text_cannot_be_equal_translated_text
@@ -14,6 +15,13 @@ class Card < ActiveRecord::Base
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
+
+  def self.create_from_pack(user, card_params)
+    pack_name = card_params.delete(:new_pack_name)
+    new_pack = user.packs.find_or_create_by(name: pack_name)
+    card = new_pack.cards.new(card_params.merge(pack_id: new_pack.id))
+    card
+  end
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)

@@ -13,6 +13,6 @@ class ProfileController < ApplicationController
 
   private
     def profile_params
-      params.require(:profile).permit(:email, :password, :password_confirmation)
+      params.require(:profile).permit(:email, :password, :password_confirmation, :current_pack_id)
     end
 end

@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   def new
-    @card = current_user.cards.for_review.first # get random card for review
+    @card = current_user.get_review_cards.first
   end
 
   def create

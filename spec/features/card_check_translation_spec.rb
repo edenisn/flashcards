@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'Check user translation' do
 
   let!(:user) { FactoryGirl.create(:user) }
-  let!(:card) { user.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
+  let!(:pack) { FactoryGirl.create(:pack, user: user) }
+  let!(:card) { pack.cards.create(original_text: "test", translated_text: "тест", review_date: Date.today) }
 
   before(:each) do
     login("person1@example.com", "password")
