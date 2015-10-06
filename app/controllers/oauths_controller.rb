@@ -10,14 +10,14 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
-      redirect_to root_path, notice: "Вы вошли в #{provider.titleize}"
+      redirect_to root_path, notice: "Вы вошли в Ваш #{provider.titleize} аккаунт"
     else
       begin
         @user = create_from(provider)
 
         reset_session # protect from session fixation attack
         auto_login(@user)
-        redirect_to root_path, notice: "Вы вошли в #{provider.titleize}"
+        redirect_to root_path, notice: "Вы вошли в Ваш #{provider.titleize} аккаунт"
       rescue
         redirect_to root_path, notice: "Ошибка при входе в Ваш #{provider.titleize} аккаунт"
       end
