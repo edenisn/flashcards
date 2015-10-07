@@ -69,7 +69,13 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   config.paperclip_defaults = {
-      storage: :file
+      storage: :s3,
+      s3_host_name: 's3-us-west-2.amazonaws.com',
+      s3_credentials: {
+          bucket: ENV['AWS_BUCKET_NAME'],
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      }
   }
 
   # Send deprecation notices to registered listeners.

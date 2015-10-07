@@ -20,6 +20,7 @@ describe "User" do
       fill_in :card_original_text, with: "qwerty"
       select "2013", from: "card_review_date_1i"
       select "1", from: "card_pack_id"
+      fill_in :card_new_pack_name, with: "test_qwerty"
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно обновлена"
     end
@@ -36,6 +37,7 @@ describe "User" do
       select "September", from: "card_review_date_2i"
       select "1", from: "card_review_date_3i"
       select "1", from: "card_pack_id"
+      fill_in :card_new_pack_name, with: "test_pack"
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно создана"
     end

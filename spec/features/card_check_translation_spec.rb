@@ -11,6 +11,8 @@ describe 'Check user translation' do
     click_link "Все карточки"
     click_link "Редактировать"
     select "2010", from: "card_review_date_1i"
+    select "May", from: "card_review_date_2i"
+    fill_in :card_new_pack_name, with: "test_pack"
     click_button "Создать/Обновить"
   end
 

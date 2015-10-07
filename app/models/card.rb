@@ -19,8 +19,14 @@ class Card < ActiveRecord::Base
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
     new_pack = user.packs.find_or_create_by(name: pack_name)
-    card = new_pack.cards.new(card_params.merge(pack_id: new_pack.id))
+    card = new_pack.cards.create(card_params.merge(pack_id: new_pack.id))
     card
+  end
+
+  def update_from_pack(user, card_params)
+    pack_name = card_params.delete(:new_pack_name)
+    new_pack = user.packs.find_or_create_by(name: pack_name)
+    update(card_params.merge(pack_id: new_pack.id))
   end
 
   def verify_translation(user_translation)
