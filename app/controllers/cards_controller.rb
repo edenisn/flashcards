@@ -18,7 +18,6 @@ class CardsController < ApplicationController
   end
 
   def update
-    puts card_params[:id]
     if @card.update_from_pack(current_user, card_params)
       redirect_to @card, notice: "Карточка успешно обновлена"
     else
