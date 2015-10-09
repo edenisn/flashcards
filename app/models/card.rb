@@ -17,6 +17,9 @@ class Card < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
 
+  # time intervals for review cards in Leitner system
+  TIME_INTERVALS = [12.hour, 3.day, 7.day, 14.day, 1.month]
+
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
     new_pack = user.packs.find_or_create_by(name: pack_name)
@@ -32,8 +35,9 @@ class Card < ActiveRecord::Base
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
-      update(review_date: DateTime.now + time_before_review_card)
+      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
       self.increment!(:correct_counter)
+      update(wrong_counter: 0) if self.wrong_counter != 0
       true
     else
       self.increment!(:wrong_counter)
@@ -45,21 +49,6 @@ class Card < ActiveRecord::Base
   end
 
   private
-    def time_before_review_card
-      case self.correct_counter
-        when 0
-          12.hour
-        when 1
-          3.day
-        when 2
-          7.day
-        when 3
-          14.day
-        else
-          1.month
-      end
-    end
-
     def original_text_cannot_be_equal_translated_text
       if original_text.mb_chars.downcase == translated_text.mb_chars.downcase
         errors.add(:translated_text, 'Переведенный текст не должен совпадать с оригиналом!')
