@@ -1,7 +1,8 @@
 class Card < ActiveRecord::Base
+
   belongs_to :pack
 
-  scope :for_review, -> { where("review_date <= ?", Date.today).order("RANDOM()") }
+  scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
 
   has_attached_file :image, styles: { thumb: "100x100>", large: "360x360#" }
 
@@ -15,6 +16,9 @@ class Card < ActiveRecord::Base
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
+
+  # time intervals for review cards in Leitner system
+  TIME_INTERVALS = [12.hour, 3.day, 7.day, 14.day, 1.month]
 
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
@@ -31,9 +35,15 @@ class Card < ActiveRecord::Base
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
-      update(review_date: Date.today + 3.days)
+      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
+      self.increment!(:correct_counter)
+      update(wrong_counter: 0) if self.wrong_counter != 0
       true
     else
+      self.increment!(:wrong_counter)
+      if self.wrong_counter == 3
+        update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
+      end
       false
     end
   end
@@ -46,7 +56,7 @@ class Card < ActiveRecord::Base
     end
 
     def set_default_review_date
-      self.review_date = Date.today + 3.days
+      self.review_date = DateTime.now
     end
 
     def transform_string(str)

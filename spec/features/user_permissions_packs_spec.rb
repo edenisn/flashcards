@@ -5,7 +5,6 @@ describe Pack do
   let!(:user) { create(:user) }
 
   context "authorized user" do
-
     before(:each) do
       pack = FactoryGirl.create(:pack, user: user)
 
@@ -27,11 +26,9 @@ describe Pack do
       click_button "Создать/Обновить"
       expect(page).to have_content "Колода успешно создана"
     end
-
   end
 
   context "not authorized user" do
-
     before(:each) do
       login("person1@example.com", "")
       visit root_path
@@ -46,7 +43,6 @@ describe Pack do
       click_link "Добавить колоду"
       expect(page).to have_content "Необходима регистрация"
     end
-
   end
 
 end
