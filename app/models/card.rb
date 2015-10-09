@@ -17,9 +17,6 @@ class Card < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
 
-  # correct attempts for checking cards
-  COUNTER_MAPPING = 1
-
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
     new_pack = user.packs.find_or_create_by(name: pack_name)
@@ -35,33 +32,31 @@ class Card < ActiveRecord::Base
 
   def verify_translation(user_translation)
     if transform_string(original_text) == transform_string(user_translation)
-      update(review_date: DateTime.now + time_and_counter_mapping[0],
-             correct_counter: time_and_counter_mapping[1])
+      update(review_date: DateTime.now + time_before_review_card)
+      self.increment!(:correct_counter)
       true
     else
       self.increment!(:wrong_counter)
       if self.wrong_counter == 3
-        update(review_date: DateTime.now + 12.hour,
-               wrong_counter: COUNTER_MAPPING - 1,
-               correct_counter: COUNTER_MAPPING - 1)
+        update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
       end
       false
     end
   end
 
   private
-    def time_and_counter_mapping
+    def time_before_review_card
       case self.correct_counter
         when 0
-          [12.hour, COUNTER_MAPPING]
+          12.hour
         when 1
-          [3.day, COUNTER_MAPPING + 1]
+          3.day
         when 2
-          [7.day, COUNTER_MAPPING + 2]
+          7.day
         when 3
-          [14.day, COUNTER_MAPPING + 3]
+          14.day
         else
-          [1.month, COUNTER_MAPPING + 4]
+          1.month
       end
     end
 
