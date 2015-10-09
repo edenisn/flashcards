@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "User sign up" do
 
-  let!(:user) { create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
 
   it "with valid email and password" do
     login("person1@example.com", "password")

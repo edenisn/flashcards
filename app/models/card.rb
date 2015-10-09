@@ -41,7 +41,9 @@ class Card < ActiveRecord::Base
     else
       self.increment!(:wrong_counter)
       if self.wrong_counter == 3
-        update(review_date: DateTime.now + 12.hours, wrong_counter: 0, correct_counter: 0)
+        update(review_date: DateTime.now + 12.hour,
+               wrong_counter: COUNTER_MAPPING - 1,
+               correct_counter: COUNTER_MAPPING - 1)
       end
       false
     end
@@ -50,11 +52,16 @@ class Card < ActiveRecord::Base
   private
     def time_and_counter_mapping
       case self.correct_counter
-        when 0 then [12.hours, COUNTER_MAPPING]
-        when 1 then [3.days, COUNTER_MAPPING + 1]
-        when 2 then [7.days, COUNTER_MAPPING + 2]
-        when 3 then [14.days, COUNTER_MAPPING + 3]
-        else [1.months, COUNTER_MAPPING + 4]
+        when 0
+          [12.hour, COUNTER_MAPPING]
+        when 1
+          [3.day, COUNTER_MAPPING + 1]
+        when 2
+          [7.day, COUNTER_MAPPING + 2]
+        when 3
+          [14.day, COUNTER_MAPPING + 3]
+        else
+          [1.month, COUNTER_MAPPING + 4]
       end
     end
 

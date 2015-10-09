@@ -2,10 +2,13 @@ require 'rails_helper'
 
 describe Card do
 
-  let!(:card) { create(:card) }
+  let!(:card) { FactoryGirl.create(:card) }
+
+  before(:each) do
+    Timecop.freeze(DateTime.now)
+  end
 
   context "aliased attributes" do
-
     it "is the correct original_text card" do
       expect(card.original_text).to eq "Fruit"
     end
@@ -19,15 +22,13 @@ describe Card do
     end
 
     it "is the correct review_date card" do
-      expect(card.review_date).to eq(Date.today + 3.days)
+      expect(card.review_date).to eq DateTime.now
     end
-
   end
 
   context "not valid object" do
-
     before(:each) do
-      @card1 = Card.create(original_text: 'house', translated_text: 'house')
+      @card1 = Card.create(original_text: 'house', translated_text: 'house', review_date: DateTime.now + 10.day)
       @card2 = Card.create(original_text: 'house', translated_text: 'HOuSe')
     end
 
@@ -39,24 +40,20 @@ describe Card do
          even with small and lower-case letters" do
       expect(@card2).to_not be_valid
     end
-
   end
 
   context "scopes" do
-
-    it "is not include card that have review_date >= Date.today" do
-      expect(Card.for_review).to_not include(card)
+    it "is not include card that have review_date >= DateTime.now" do
+      expect(Card.for_review).to_not include(@card1)
     end
 
-    it "is include card that have review_date <= Date.today" do
-      card.update(review_date: Date.today)
+    it "is include card that have review_date <= DateTime.now" do
+      card.update(review_date: DateTime.now)
       expect(Card.for_review).to include(card)
     end
-
   end
 
   context "check translation for review card" do
-
     it "is false if translation is not correct" do
       expect(card.verify_translation("Banana")).to be false
     end
@@ -68,7 +65,6 @@ describe Card do
     it "is true if translation is correct even with small and lower-case letters" do
       expect(card.verify_translation("fRUiT")).to be true
     end
-
   end
 
 end

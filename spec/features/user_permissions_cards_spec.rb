@@ -5,10 +5,9 @@ describe "User" do
   let!(:user) { FactoryGirl.create(:user) }
 
   context "authorized" do
-
     before(:each) do
       pack = FactoryGirl.create(:pack, user: user)
-      card = create(:card, pack: pack, original_text: "city", translated_text: "город", review_date: Date.today)
+      card = create(:card, pack: pack, original_text: "city", translated_text: "город", review_date: DateTime.now)
 
       login("person1@example.com", "password")
       visit root_path
@@ -47,11 +46,9 @@ describe "User" do
       expect(page).not_to have_content "city"
 
     end
-
   end
 
   context "not authorized" do
-
     before(:each) do
       login("person1@example.com", "")
       visit root_path
@@ -76,7 +73,6 @@ describe "User" do
       click_link "Добавить карточку"
       expect(page).to have_content "Необходима регистрация"
     end
-
   end
 
 end

@@ -3,11 +3,10 @@ FactoryGirl.define do
   factory :card do
     original_text 'Fruit'
     translated_text 'Фрукт'
+    review_date DateTime.now
+    wrong_counter 0
+    correct_counter 0
     association :pack
-
-    before(:create) do |card|
-      card.update_attributes(review_date: Date.today + 3.days)
-    end
   end
 
 end
