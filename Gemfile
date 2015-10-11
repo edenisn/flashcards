@@ -13,7 +13,7 @@ gem 'simple_form'
 gem "paperclip", "~> 4.3"
 # Use for uploading files to AWS S3
 gem 'aws-sdk', '< 2.0'
-#Use for Simple Rails app configuration
+# Use for Simple Rails app configuration
 gem 'figaro'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -32,8 +32,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-#
-
+# Levenshtein distance
+gem 'text'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

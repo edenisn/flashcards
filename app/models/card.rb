@@ -19,6 +19,7 @@ class Card < ActiveRecord::Base
 
   # time intervals for review cards in Leitner system
   TIME_INTERVALS = [12.hour, 3.day, 7.day, 14.day, 1.month]
+  MAX_TIME_INTERVAL = 5
 
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
@@ -34,17 +35,30 @@ class Card < ActiveRecord::Base
   end
 
   def verify_translation(user_translation)
-    if transform_string(original_text) == transform_string(user_translation)
+    typos = Text::Levenshtein.distance(transform_string(original_text), transform_string(user_translation))
+    if typos < 3
+      processing_success_translation_update
+      { result: true, typos: typos }
+    else
+      processing_failure_translation_update
+      { result: false, typos: typos }
+    end
+  end
+
+  def processing_success_translation_update
+    if self.correct_counter == MAX_TIME_INTERVAL
+      update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1])
+    else
       update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
       self.increment!(:correct_counter)
-      update(wrong_counter: 0) if self.wrong_counter != 0
-      true
-    else
-      self.increment!(:wrong_counter)
-      if self.wrong_counter == 3
-        update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
-      end
-      false
+    end
+    update(wrong_counter: 0) if self.wrong_counter != 0
+  end
+
+  def processing_failure_translation_update
+    self.increment!(:wrong_counter)
+    if self.wrong_counter == 3 # wrong translation card
+      update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
     end
   end
 
