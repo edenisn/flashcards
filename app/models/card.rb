@@ -35,22 +35,30 @@ class Card < ActiveRecord::Base
   end
 
   def verify_translation(user_translation)
-    result = Text::Levenshtein.distance(transform_string(original_text), transform_string(user_translation))
-    if result < 3
-      if self.correct_counter == MAX_TIME_INTERVAL
-        update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1])
-      else
-        update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
-        self.increment!(:correct_counter)
-      end
-      update(wrong_counter: 0) if self.wrong_counter != 0
-      result
+    typos = Text::Levenshtein.distance(transform_string(original_text), transform_string(user_translation))
+    if typos < 3
+      processing_success_translation_update
+      { result: true, typos: typos }
     else
-      self.increment!(:wrong_counter)
-      if self.wrong_counter == 3 # wrong translation card
-        update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
-      end
-      false
+      processing_failure_translation_update
+      { result: false, typos: typos }
+    end
+  end
+
+  def processing_success_translation_update
+    if self.correct_counter == MAX_TIME_INTERVAL
+      update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1])
+    else
+      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
+      self.increment!(:correct_counter)
+    end
+    update(wrong_counter: 0) if self.wrong_counter != 0
+  end
+
+  def processing_failure_translation_update
+    self.increment!(:wrong_counter)
+    if self.wrong_counter == 3 # wrong translation card
+      update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
     end
   end
 
