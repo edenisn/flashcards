@@ -9,7 +9,6 @@ describe 'Check user translation' do
   before(:each) do
     login("person1@example.com", "password")
     click_link "Все карточки"
-    save_and_open_page
     click_link "Редактировать"
     select "2010", from: "card_review_date_1i"
     select "May", from: "card_review_date_2i"
