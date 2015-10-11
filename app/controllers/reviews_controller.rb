@@ -8,7 +8,8 @@ class ReviewsController < ApplicationController
 
     if @result = @card.verify_translation(review_params[:user_translation])
       if @result > 0
-        flash[:notice] = "Правильно, но при переводе совершили опечатку. Будьте внимательнее!"
+        flash[:notice] = "Правильно, но при переводе совершили опечатку. Будьте внимательнее!
+                          Перевод: #{@card.original_text}, а Вы ввели: #{review_params[:user_translation]}"
       else
         flash[:notice] = "Правильно"
       end
