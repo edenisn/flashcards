@@ -6,8 +6,13 @@ class ReviewsController < ApplicationController
   def create
     @card = current_user.cards.find(review_params[:card_id])
 
-    if @card.verify_translation(review_params[:user_translation])
-      redirect_to :back, notice: "Правильно"
+    if @result = @card.verify_translation(review_params[:user_translation])
+      if @result > 0
+        flash[:notice] = "Правильно, но при переводе совершили опечатку. Будьте внимательнее!"
+      else
+        flash[:notice] = "Правильно"
+      end
+      redirect_to :back
     else
       redirect_to :back, notice: "Не правильно!"
     end

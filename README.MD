@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/edenisn/flashcards.svg)](https://travis-ci.org/edenisn/flashcards)
+[![Code Climate](https://codeclimate.com/repos/5617fa6769568006a40018b5/badges/42cde8d84bc60ff0fe59/gpa.svg)](https://codeclimate.com/repos/5617fa6769568006a40018b5/feed)
