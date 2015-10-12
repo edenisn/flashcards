@@ -19,6 +19,14 @@ class User < ActiveRecord::Base
   validates :password, confirmation: { message: "Пароли не совпадают" }
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
 
+  def self.notify_review_cards
+    User.find_each do |user|
+      if user.review_cards.first.present?
+        NotificationsMailer.pending_cards(user).deliver_now
+      end
+    end
+  end
+
   def review_cards
     if current_pack
       current_pack.cards.for_review
