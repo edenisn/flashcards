@@ -19,9 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :environment, "development"
-set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
-
 every 3.days, at: '12pm' do
   runner "User.notify_review_cards"
 end

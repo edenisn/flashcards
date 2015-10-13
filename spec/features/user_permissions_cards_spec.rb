@@ -7,7 +7,7 @@ describe "User" do
   context "authorized" do
     before(:each) do
       pack = FactoryGirl.create(:pack, user: user)
-      card = create(:card, pack: pack, original_text: "city", translated_text: "город", review_date: DateTime.now)
+      card = create(:card, pack: pack, original_text: "city", translated_text: "город", review_date: DateTime.now.utc)
 
       login("person1@example.com", "password")
       visit root_path
@@ -40,11 +40,20 @@ describe "User" do
       click_button "Создать/Обновить"
       expect(page).to have_content "Карточка успешно создана"
     end
+  end
 
-    it "can't see cards that owned by another user" do
+  context "authorized another user" do
+    before(:each) do
+      @user2 = User.create(email: "person2@example.com", password: "qwerty", password_confirmation: "qwerty")
+      @card2 = @user2.cards.create(original_text: "test", translated_text: "тест", review_date: DateTime.now.utc)
+
+      login("person2@example.com", "qwerty")
+      visit root_path
+    end
+
+    it "can't see cards that owned by other users" do
       click_link "Все карточки"
       expect(page).not_to have_content "city"
-
     end
   end
 

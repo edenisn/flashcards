@@ -20,8 +20,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
 
   def self.notify_review_cards
-    User.find_each do |user|
-      if user.review_cards.first.present?
+    User.find_each(batch_size: 100) do |user|
+      if user.review_cards.present?
         NotificationsMailer.pending_cards(user).deliver_now
       end
     end

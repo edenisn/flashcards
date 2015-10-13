@@ -36,8 +36,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'text'
 # Cron jobs
 gem 'whenever', require: false
-# Background processing gem
-gem 'sidekiq'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

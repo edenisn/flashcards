@@ -4,7 +4,7 @@ describe 'Check user translation' do
 
   let!(:user) { FactoryGirl.create(:user) }
   let!(:pack) { FactoryGirl.create(:pack, user: user) }
-  let!(:card) { pack.cards.create(original_text: "test", translated_text: "тест", review_date: DateTime.now) }
+  let!(:card) { pack.cards.create(original_text: "test", translated_text: "тест", review_date: DateTime.now.utc) }
 
   before(:each) do
     login("person1@example.com", "password")
