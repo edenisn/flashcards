@@ -1,5 +1,5 @@
 class NotificationsMailer < ApplicationMailer
-  default from: "from@example.com"
+  default from: ENV['DELIVERY_FROM_EMAIL']
 
   def pending_cards(user)
     @user = user

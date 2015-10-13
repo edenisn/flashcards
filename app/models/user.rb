@@ -20,10 +20,9 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
 
   def self.notify_review_cards
-    User.find_each do |user|
-      if user.review_cards.present?
-        NotificationsMailer.pending_cards(user).deliver_now
-      end
+    User.includes(:cards)
+        .where("cards.review_date <= ?", DateTime.now).references(:cards).each do |user|
+      NotificationsMailer.pending_cards(user).deliver_now
     end
   end
 
