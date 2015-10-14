@@ -1,5 +1,4 @@
 class Card < ActiveRecord::Base
-
   belongs_to :pack
 
   scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
@@ -47,12 +46,11 @@ class Card < ActiveRecord::Base
 
   def processing_success_translation_update
     if self.correct_counter == MAX_TIME_INTERVAL
-      update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1])
+      update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1], wrong_counter: 0)
     else
-      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter])
-      self.increment!(:correct_counter)
+      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter],
+             correct_counter: correct_counter + 1, wrong_counter: 0)
     end
-    update(wrong_counter: 0) if self.wrong_counter != 0
   end
 
   def processing_failure_translation_update

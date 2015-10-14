@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :pack do
-    sequence(:name) { |n| "pack#{n}" }
+    name 'pack1'
     association :user
   end
 

@@ -7,7 +7,7 @@ describe 'User' do
   context "have current pack and cards for review from this pack" do
     before(:each) do
       pack = FactoryGirl.create(:pack, user: user)
-      card = create(:card, pack: pack, original_text: "test", translated_text: "тест", review_date: DateTime.now)
+      card = create(:card, pack: pack, original_text: "test", translated_text: "тест", review_date: DateTime.now.utc)
 
       login("person1@example.com", "password")
       set_current_pack("person1@example.com", "password", "password")
@@ -35,7 +35,7 @@ describe 'User' do
   context "have no current pack and have cards for review" do
     before(:each) do
       pack = FactoryGirl.create(:pack, user: user)
-      card = create(:card, pack: pack, original_text: "test", translated_text: "тест", review_date: DateTime.now)
+      card = create(:card, pack: pack, original_text: "test", translated_text: "тест", review_date: DateTime.now.utc)
 
       login("person1@example.com", "password")
 
