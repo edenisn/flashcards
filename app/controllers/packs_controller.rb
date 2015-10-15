@@ -13,7 +13,7 @@ class PacksController < ApplicationController
     @pack = current_user.packs.new(pack_params)
 
     if @pack.save
-      redirect_to @pack, notice: "Колода успешно создана"
+      redirect_to @pack, notice: t('views.packs.flash_messages.pack_was_successfully_created')
     else
       render 'new'
     end
@@ -21,7 +21,7 @@ class PacksController < ApplicationController
 
   def update
     if @pack.update(pack_params)
-      redirect_to @pack, notice: "Колода успешно обновлена"
+      redirect_to @pack, notice: t('views.packs.flash_messages.pack_was_successfully_updated')
     else
       render 'edit'
     end

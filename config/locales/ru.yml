@@ -1,0 +1,128 @@
+ru:
+  date:
+    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
+    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
+
+    # Used in date_select and datetime_select
+    order:
+      - :day
+      - :month
+      - :year
+
+  page_title: 'Флэшкарточкер'
+
+  views:
+    current_user_label: 'Вы вошли как'
+    h2_title_class_muted: 'Флэшкарточкер'
+    show: Показать
+    edit: Редактировать
+    destroy: Удалить
+    are_you_sure: Вы уверены?
+    back: Назад
+
+    cards:
+      index:
+        h3: 'Все карточки'
+      new:
+        h3: 'Новая карточка'
+      show:
+        h3: 'Карточка #'
+      edit:
+        h3: 'Редактирование карточки'
+      flash_messages:
+        card_was_successfully_created: 'Карточка успешно создана'
+        card_was_successfully_updated: 'Карточка успешно обновлена'
+    packs:
+      index:
+        h3: 'Все колоды'
+        set_default_pack: 'Выбрать текущую колоду'
+      new:
+        h3: 'Новая колода'
+      show:
+        h3: 'Колода #'
+      edit:
+        h3: 'Редактирование колоды'
+      flash_messages:
+        pack_was_successfully_created: 'Колода успешно создана'
+        pack_was_successfully_updated: 'Колода успешно обновлена'
+    reviews:
+      nil_cards_label: 'Открывайте тренировщик потом'
+      flash_messages:
+        user_translated_correct: 'Правильно'
+        user_translated_incorrect: 'Неправильно'
+        user_translated_with_distance: 'Правильно, но при переводе совершили опечатку. Будьте внимательнее!
+                                        Перевод: #{@card.original_text}, а Вы ввели: #{review_params[:user_translation]}'
+    registration:
+      h3: 'Регистрация'
+      flash_messages:
+        user_successfully_created: 'Добро пожаловать'
+    profile:
+      h3: 'Редактировать аккаунт'
+      current_email: 'Ваш текущий email'
+      change_password_label: 'Для смены пароля введите Ваш новый пароль'
+      flash_messages:
+        user_profile_successfully_updated: 'Профиль пользователя успешно обновлен'
+        user_profile_wrong_updated: 'Сбой при обновлении профиля пользователя'
+    session:
+      h3: 'Войти'
+      flash_messages:
+        user_successfully_login: 'Добро пожаловать!'
+        user_successfully_logout: 'До свидания!'
+        wrong_email_or_password: 'Неверный email или пароль'
+
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'Поле не может быть пустым'
+              taken: 'Такой email уже существует'
+              invalid: 'Введите правильный формат email: username@host.com'
+            password:
+              blank: 'Поле не может быть пустым'
+              too_short: 'Длина пароля должна быть не меньше 6 символов'
+            password_confirmation:
+              blank: 'Поле не может быть пустым'
+              confirmation: 'Пароли не совпадают'
+        card:
+          attributes:
+            pack_id:
+              blank: 'Поле не может быть пустым'
+            original_text:
+              blank: 'Поле не может быть пустым'
+        pack:
+          attributes:
+            name:
+              blank: 'Поле не может быть пустым'
+              taken: 'Колода с таким именем уже существует'
+    models:
+      user: 'Пользователь'
+      card: 'Карточка'
+      pack: 'Колода'
+    attributes:
+      card:
+        original_text: 'Оригинальный текст'
+        translated_text: 'Перевод'
+        review_date: 'Дата создания'
+      pack:
+        name: 'Имя колоды'
+
+  forms:
+    buttons:
+      submit: 'Создать/Обновить'
+
+  menu:
+    edit_profile: 'Редактировать аккаунт'
+    registration: 'Регистрация'
+    login: 'Войти'
+    logout: 'Выйти'
+    all_packs: 'Все колоды'
+    all_cards: 'Все карточки'
+    new_pack: 'Новая колода'
+    new_card: 'Новая карточка'
+    sign_in_github: 'Войти с помощью Github'
+    sign_in_twitter: 'Войти с помощью Twitter'
+    unlink_github: 'Выйти из Github аккаунта'
+    unlink_twitter: 'Выйти из Twitter аккаунта'

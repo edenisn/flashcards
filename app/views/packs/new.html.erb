@@ -1,4 +1,4 @@
-<h3>Новая колода</h3>
+<h3><%= t('views.packs.new.h3') %></h3>
 <%= render "form", pack: @pack %>
-<%= link_to 'Назад', packs_path %>
+<%= link_to t('views.back'), packs_path %>
 <p id="notice"><%= notice %></p>

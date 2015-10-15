@@ -10,14 +10,13 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authentications
 
-  validates :email, uniqueness: { message: 'Такой email уже существует' },
-            presence: { message: "Поле не может быть пустым" },
-            format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
-                         message: 'Введите правильный формат email: username@host.com' }
+  validates :email, uniqueness: true,
+            presence: true,
+            format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }
 
-  validates :password, length: { minimum: 6, message: "Длина пароля должна быть не меньше 6 символов" }
-  validates :password, confirmation: { message: "Пароли не совпадают" }
-  validates :password_confirmation, presence: { message: "Поле не может быть пустым" }
+  validates :password, length: { minimum: 6 }
+  validates :password, confirmation: true
+  validates :password_confirmation, presence: true
 
   def self.notify_review_cards
     User.includes(:cards)

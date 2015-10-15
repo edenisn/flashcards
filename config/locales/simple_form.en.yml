@@ -5,6 +5,30 @@ en:
     required:
       text: 'required'
       mark: '*'
+
+    labels:
+      email: 'Email'
+      password: 'Password'
+      registration:
+        password_confirmation: 'Confirmation password'
+      profile:
+        email: 'New email'
+        password: 'New password'
+        current_pack_id: 'Set default pack'
+      review:
+        user_translation: 'Original text'
+
+    buttons:
+      registration:
+        submit: 'Create account'
+      profile:
+        submit: 'Update account'
+      session:
+        submit: 'Login'
+      review:
+        submit: 'Check'
+
+
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'

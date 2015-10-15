@@ -1,22 +1,22 @@
-<h3>Карточка #<%= @card.id %></h3>
+<h3><%= t('views.cards.show.h3') %><%= @card.id %></h3>
 <p>
-  <label>Оригинальный текст:</label>
+  <label><%= Card.human_attribute_name(:original_text) %></label>
   <%= @card.original_text %>
 </p>
 <p>
-  <label>Перевод:</label>
+  <label><%= Card.human_attribute_name(:translated_text) %></label>
   <%= @card.translated_text %>
 </p>
 <p>
-  <label>Картинка для карточки:</label>
+  <label><%= Card.human_attribute_name(:image) %></label>
   <%= image_tag @card.image(:large) %>
 </p>
 <p>
-  <label>Дата создания:</label>
+  <label><%= Card.human_attribute_name(:review_date) %></label>
   <%= @card.review_date.strftime("%d/%m/%Y") %>
 </p>
 <p>
-  <label>Имя колоды:</label>
+  <label><%= Pack.human_attribute_name(:name) %></label>
   <%= @card.pack.name %>
 </p>
-<%= link_to 'Назад', cards_path %>
+<%= link_to t('views.back'), cards_path %>

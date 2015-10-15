@@ -11,7 +11,7 @@ class CardsController < ApplicationController
 
   def create
     if @card = Card.create_from_pack(current_user, card_params)
-      redirect_to @card, notice: "Карточка успешно создана"
+      redirect_to @card, notice: t('views.cards.flash_messages.card_was_successfully_created')
     else
       render 'new'
     end
@@ -19,7 +19,7 @@ class CardsController < ApplicationController
 
   def update
     if @card.update_from_pack(current_user, card_params)
-      redirect_to @card, notice: "Карточка успешно обновлена"
+      redirect_to @card, notice: t('views.cards.flash_messages.card_was_successfully_updated')
     else
       render 'edit'
     end

@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Флэшкарточкер</title>
+  <title><%= t('page_title') %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<p>
+  <%= link_to_unless I18n.locale == :en, "English", locale: :en %> |
+  <%= link_to_unless I18n.locale == :ru, "Russian", locale: :ru %>
+</p>
 <header class="navbar navbar-default">
   <div class="container">
-    <h2>Флэшкарточкер</h2>
+    <h2 class="text-muted"><%= t('views.h2_title_class_muted') %></h2>
     <div class="user nav">
       <% if current_user %>
-        Вы вошли как <%= current_user.email %> |
-        <%= link_to "Редактировать профиль", edit_profile_path(current_user.id) %> |
-        <%= link_to "Выйти", logout_path %>
+        <%= t('views.current_user_label') %>: <%= current_user.email %> |
+        <%= link_to t('menu.edit_profile'), edit_profile_path(current_user.id) %> |
+        <%= link_to t('menu.logout'), logout_path %>
       <% else %>
-        <%= link_to "Регистрация", signup_path %> |
-        <%= link_to "Войти", login_path %>
+        <%= link_to t('menu.registration'), signup_path %> |
+        <%= link_to t('menu.login'), login_path %>
       <% end %>
     </div>
     <div style="text-align: left;">
-      <%= link_to 'Войти в Github аккаунт', auth_at_provider_path(provider: :github) %> |
-      <%= link_to 'Войти в Twitter аккаунт', auth_at_provider_path(provider: :twitter) %>
+      <%= link_to t('menu.sign_in_github'), auth_at_provider_path(provider: :github) %> |
+      <%= link_to t('menu.sign_in_twitter'), auth_at_provider_path(provider: :twitter) %>
     </div>
     <nav>
       <ul class="nav navbar-nav pull-right">
-        <li><%= link_to "Все колоды", packs_path %></li>
-        <li><%= link_to "Все карточки", cards_path %></li>
-        <li><%= link_to "Добавить колоду", new_pack_path %></li>
-        <li><%= link_to "Добавить карточку", new_card_path %></li>
+        <li><%= link_to t('menu.all_packs'), packs_path %></li>
+        <li><%= link_to t('menu.all_cards'), cards_path %></li>
+        <li><%= link_to t('menu.new_pack'), new_pack_path %></li>
+        <li><%= link_to t('menu.new_card'), new_card_path %></li>
       </ul>
     </nav>
     <p id="alert"><%= alert %></p>
@@ -40,6 +43,7 @@
 
 <div class="container">
   <%= yield %>
+  <%= I18n.locale %>
 </div>
 
 </body>

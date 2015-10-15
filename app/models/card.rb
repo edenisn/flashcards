@@ -7,8 +7,8 @@ class Card < ActiveRecord::Base
 
   before_create :set_default_review_date
 
-  validates :pack_id, presence: { message: "Необходимо выбрать колоду" }
-  validates :original_text, :translated_text, :review_date, presence: { message: 'Поле не может быть пустым' }
+  validates :pack_id, presence: true
+  validates :original_text, :translated_text, :review_date, presence: true
 
   validate :original_text_cannot_be_equal_translated_text
 

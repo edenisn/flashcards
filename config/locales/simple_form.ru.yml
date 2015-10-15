@@ -1,0 +1,29 @@
+ru:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+
+    labels:
+      email: 'Email'
+      password: 'Пароль'
+      registration:
+        password_confirmation: 'Повторите ввод пароля'
+      profile:
+        email: 'Новый email'
+        password: 'Новый пароль'
+        current_pack_id: 'Выбрать текущую колоду'
+      review:
+        user_translation: 'Оригинальный текст'
+
+    buttons:
+      registration:
+        submit: 'Создать аккаунт'
+      profile:
+        submit: 'Обновить аккаунт'
+      session:
+        submit: 'Войти'
+      review:
+        submit: 'Проверить'

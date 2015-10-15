@@ -1,8 +1,8 @@
-<h3>Войти</h3>
+<h3><%= t('views.session.h3') %></h3>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <%= simple_form_for :session, url: sessions_path do |f| %>
-    <%= f.input :email, label: 'Email:' %>
-    <%= f.input :password, label: 'Пароль:' %>
-    <%= f.button :submit, 'Войти' %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.button :submit, t('simple_form.buttons.session.submit') %>
 <% end %>

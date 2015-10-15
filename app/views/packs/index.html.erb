@@ -1,12 +1,12 @@
-<h3>Все колоды</h3>
+<h3><%= t('views.packs.index.h3') %></h3>
 <p id="notice"><%= notice %></p>
 <p>
-  <%= link_to 'Выбрать текущую колоду', edit_profile_path(current_user) %>
+  <%= link_to t('views.packs.index.set_default_pack'), edit_profile_path(current_user) %>
 </p>
 <table class="table table-hover">
   <thead>
   <tr>
-    <th>Имя колоды</th>
+    <th><%= Pack.human_attribute_name(:name) %></th>
     <th></th>
     <th></th>
   </tr>
@@ -16,10 +16,10 @@
     <tbody>
     <tr>
       <td><%= pack.name %></td>
-      <td><%= link_to 'Редактировать', edit_pack_path(pack) %></td>
-      <td><%= link_to 'Удалить', pack_path(pack),
+      <td><%= link_to t('views.edit'), edit_pack_path(pack) %></td>
+      <td><%= link_to t('views.destroy'), pack_path(pack),
                       method: :delete,
-                      data: { confirm: 'Вы уверены?' } %></td>
+                      data: { confirm: "#{t('views.are_you_sure')}" } %></td>
     </tr>
     </tbody>
   <% end %>
