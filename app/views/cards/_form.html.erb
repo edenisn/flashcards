@@ -5,6 +5,6 @@
   <%= f.input :review_date, as: :date %>
   <%= label_tag 'Имя новой колоды:' %>
   <%= text_field_tag 'card[new_pack_name]' %>
-  <%= f.association :pack %>
+  <%= f.input :pack_id, collection: current_user.packs.all %>
   <%= f.button :submit, t('forms.buttons.submit') %>
 <% end %>

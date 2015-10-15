@@ -92,6 +92,10 @@ ru:
               blank: 'Поле не может быть пустым'
             original_text:
               blank: 'Поле не может быть пустым'
+            translated_text:
+              blank: 'Поле не может быть пустым'
+            review_date:
+              blank: 'Поле не может быть пустым'
         pack:
           attributes:
             name:

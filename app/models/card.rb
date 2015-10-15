@@ -22,8 +22,13 @@ class Card < ActiveRecord::Base
 
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
-    new_pack = user.packs.find_or_create_by(name: pack_name)
-    card = new_pack.cards.create(card_params.merge(pack_id: new_pack.id))
+    if pack_name.present?
+      new_pack = user.packs.find_or_create_by(name: pack_name)
+      card = new_pack.cards.create(card_params.merge(pack_id: new_pack.id))
+    else
+      pack = user.packs.find_by(id: card_params[:pack_id])
+      card = pack.cards.create(card_params)
+    end
     card
   end
 

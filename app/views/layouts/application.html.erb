@@ -8,8 +8,11 @@
 </head>
 <body>
 <p>
-  <%= link_to_unless I18n.locale == :en, "English", locale: :en %> |
-  <%= link_to_unless I18n.locale == :ru, "Russian", locale: :ru %>
+  <% if I18n.locale == :en %>
+    <%= link_to_unless I18n.locale == :ru, "по-Русски", locale: :ru %>
+  <% else %>
+    <%= link_to_unless I18n.locale == :en, "in English", locale: :en %>
+  <% end %>
 </p>
 <header class="navbar navbar-default">
   <div class="container">
@@ -43,7 +46,6 @@
 
 <div class="container">
   <%= yield %>
-  <%= I18n.locale %>
 </div>
 
 </body>
