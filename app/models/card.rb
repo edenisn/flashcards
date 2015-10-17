@@ -3,7 +3,9 @@ class Card < ActiveRecord::Base
 
   scope :for_review, -> { where("review_date <= ?", DateTime.now).order("RANDOM()") }
 
-  has_attached_file :image, styles: { thumb: "100x100>", large: "360x360#" }
+  has_attached_file :image,
+    styles: { thumb: "100x100>", large: "360x360#" },
+    default_url: "/images/:style/missing.png"
 
   before_create :set_default_review_date
 
@@ -24,18 +26,22 @@ class Card < ActiveRecord::Base
     pack_name = card_params.delete(:new_pack_name)
     if pack_name.present?
       new_pack = user.packs.find_or_create_by(name: pack_name)
-      card = new_pack.cards.create(card_params.merge(pack_id: new_pack.id))
+      card = new_pack.cards.new(card_params.merge(pack_id: new_pack.id))
     else
       pack = user.packs.find_by(id: card_params[:pack_id])
-      card = pack.cards.create(card_params)
+      card = pack.cards.new(card_params)
     end
     card
   end
 
   def update_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
-    new_pack = user.packs.find_or_create_by(name: pack_name)
-    update(card_params.merge(pack_id: new_pack.id))
+    if pack_name.present?
+      new_pack = user.packs.find_or_create_by(name: pack_name)
+      update(card_params.merge(pack_id: new_pack.id))
+    else
+      update(card_params)
+    end
   end
 
   def verify_translation(user_translation)
@@ -68,7 +74,7 @@ class Card < ActiveRecord::Base
   private
     def original_text_cannot_be_equal_translated_text
       if original_text.mb_chars.downcase == translated_text.mb_chars.downcase
-        errors.add(:translated_text, 'Переведенный текст не должен совпадать с оригиналом!')
+        errors.add(:translated_text, I18n.t('views.cards.flash_messages.original_text_not_equal_translated_text'))
       end
     end
 

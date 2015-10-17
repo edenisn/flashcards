@@ -20,6 +20,7 @@
   <%= f.input :password %>
   <%= f.input :password_confirmation %>
   <%= f.input :current_pack_id, collection: current_user.packs.all %>
+  <%= f.input :locale, collection: I18n.available_locales, selected: current_user.locale %>
   <%= f.button :submit, t('simple_form.buttons.profile.submit') %>
 <% end %>
 <p>

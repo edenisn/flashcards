@@ -4,6 +4,7 @@ FactoryGirl.define do
     email 'person1@example.com'
     password 'password'
     password_confirmation { password }
+    locale 'ru'
   end
 
 end

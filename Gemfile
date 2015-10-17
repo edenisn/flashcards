@@ -65,5 +65,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'timecop'
+  #gem 'poltergeist', '~> 1.6.0'
+  gem 'selenium-webdriver'
 end
 

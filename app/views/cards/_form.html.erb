@@ -3,8 +3,8 @@
   <%= f.input :translated_text %>
   <%= f.input :image, as: :file %>
   <%= f.input :review_date, as: :date %>
-  <%= label_tag 'Имя новой колоды:' %>
+  <%= label_tag t('views.cards.new.label_tag_new_pack') %>
   <%= text_field_tag 'card[new_pack_name]' %>
-  <%= f.input :pack_id, collection: current_user.packs.all %>
+  <%= f.input :pack_id, collection: current_user.packs.all, selected: card.pack_id %>
   <%= f.button :submit, t('forms.buttons.submit') %>
 <% end %>

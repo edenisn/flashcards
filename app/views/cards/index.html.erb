@@ -20,7 +20,7 @@
         <td><%= card.original_text %></td>
         <td><%= card.translated_text %></td>
         <td><%= card.image_file_name %></td>
-        <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
+        <td><%= l card.review_date, format: :short %></td>
         <td><%= link_to t('views.edit'), edit_card_path(card) %></td>
         <td><%= link_to t('views.destroy'), card_path(card),
                         method: :delete,

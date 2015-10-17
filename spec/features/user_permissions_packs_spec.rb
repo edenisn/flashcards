@@ -21,7 +21,7 @@ describe Pack do
     end
 
     it "can create pack" do
-      click_link "Добавить колоду"
+      click_link "Новая колода"
       fill_in :pack_name, with: "333"
       click_button "Создать/Обновить"
       expect(page).to have_content "Колода успешно создана"
@@ -35,13 +35,13 @@ describe Pack do
     end
 
     it "can't show all packs" do
-      click_link "Все колоды"
-      expect(page).to have_content "Необходима регистрация"
+      click_link "Новая колода"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
 
     it "can't create pack" do
-      click_link "Добавить колоду"
-      expect(page).to have_content "Необходима регистрация"
+      click_link "Новая колода"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
   end
 

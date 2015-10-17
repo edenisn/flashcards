@@ -7,19 +7,19 @@ class ApplicationController < ActionController::Base
 
   private
     def not_authenticated
-      redirect_to login_path, alert: "Необходима регистрация"
+      redirect_to login_path, alert: t('need_to_register_alert')
     end
 
     def set_locale
-      locale = #if current_user
-               #  current_user.settings.locale
-               if params[:locale]
+      locale = if current_user
+                 current_user.locale
+               elsif params[:locale]
                  session[:locale] = params[:locale]
                elsif session[:locale]
                  session[:locale]
-              else
+               else
                 http_accept_language.compatible_language_from(I18n.available_locales)
-              end
+               end
       if locale && I18n.available_locales.include?(locale.to_sym)
         session[:locale] = I18n.locale = locale.to_sym
       end

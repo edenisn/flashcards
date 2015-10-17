@@ -1,6 +1,13 @@
 ru:
+  time:
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d/%m/%Y"
+    am: утра
+    pm: вечера
+
   date:
-    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
     month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
 
     # Used in date_select and datetime_select
@@ -10,6 +17,18 @@ ru:
       - :year
 
   page_title: 'Флэшкарточкер'
+
+  flashcards_greeting_text: 'Первый в мире удобный менеджер флеш-карточек'
+  training_link: 'Перейти на страницу тренировки'
+
+
+  need_to_register_alert: 'Необходимо зарегистрироваться на сайте'
+
+  oauth_user:
+    user_successfully_login: 'Вы вошли в Ваш #{provider.titleize} аккаунт'
+    user_successfully_logout: 'Вы успешно вышли из Вашего #{provider.titleize} аккаунта'
+    user_error_login: 'Ошибка при входе в Ваш #{provider.titleize} аккаунт'
+    user_error_logout: 'Возникли проблемы при выходе из Вашего #{provider.titleize} аккаунта'
 
   views:
     current_user_label: 'Вы вошли как'
@@ -25,6 +44,7 @@ ru:
         h3: 'Все карточки'
       new:
         h3: 'Новая карточка'
+        label_tag_new_pack: 'Имя новой колоды:'
       show:
         h3: 'Карточка #'
       edit:
@@ -32,6 +52,7 @@ ru:
       flash_messages:
         card_was_successfully_created: 'Карточка успешно создана'
         card_was_successfully_updated: 'Карточка успешно обновлена'
+        original_text_not_equal_translated_text: 'Переведенный текст не должен совпадать с оригиналом!'
     packs:
       index:
         h3: 'Все колоды'
@@ -49,7 +70,7 @@ ru:
       nil_cards_label: 'Открывайте тренировщик потом'
       flash_messages:
         user_translated_correct: 'Правильно'
-        user_translated_incorrect: 'Неправильно'
+        user_translated_incorrect: 'Неправильно!'
         user_translated_with_distance: 'Правильно, но при переводе совершили опечатку. Будьте внимательнее!
                                         Перевод: #{@card.original_text}, а Вы ввели: #{review_params[:user_translation]}'
     registration:
@@ -58,7 +79,7 @@ ru:
         user_successfully_created: 'Добро пожаловать'
     profile:
       h3: 'Редактировать аккаунт'
-      current_email: 'Ваш текущий email'
+      current_email_label: 'Ваш текущий email'
       change_password_label: 'Для смены пароля введите Ваш новый пароль'
       flash_messages:
         user_profile_successfully_updated: 'Профиль пользователя успешно обновлен'
@@ -73,6 +94,8 @@ ru:
 
   activerecord:
     errors:
+      messages:
+        record_invalid: 'Неверный email или пароль'
       models:
         user:
           attributes:
@@ -86,6 +109,8 @@ ru:
             password_confirmation:
               blank: 'Поле не может быть пустым'
               confirmation: 'Пароли не совпадают'
+            locale:
+              blank: 'Поле не может быть пустым'
         card:
           attributes:
             pack_id:
@@ -101,15 +126,18 @@ ru:
             name:
               blank: 'Поле не может быть пустым'
               taken: 'Колода с таким именем уже существует'
-    models:
-      user: 'Пользователь'
-      card: 'Карточка'
-      pack: 'Колода'
+
     attributes:
+      user:
+        password: 'Пароль'
+        password_confirmation: 'Повтор пароля'
+        locale: 'Локализация'
       card:
         original_text: 'Оригинальный текст'
         translated_text: 'Перевод'
         review_date: 'Дата создания'
+        image: 'Картинка для карточки'
+        pack_id: 'Выберите колоду'
       pack:
         name: 'Имя колоды'
 

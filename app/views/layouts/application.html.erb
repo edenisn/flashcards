@@ -7,15 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p>
-  <% if I18n.locale == :en %>
-    <%= link_to_unless I18n.locale == :ru, "по-Русски", locale: :ru %>
-  <% else %>
-    <%= link_to_unless I18n.locale == :en, "in English", locale: :en %>
-  <% end %>
-</p>
 <header class="navbar navbar-default">
   <div class="container">
+    <div style="text-align: right;">
+      <%= link_to_unless I18n.locale == :ru, "RU", locale: :ru %> |
+      <%= link_to_unless I18n.locale == :en, "EN", locale: :en %>
+    </div>
     <h2 class="text-muted"><%= t('views.h2_title_class_muted') %></h2>
     <div class="user nav">
       <% if current_user %>
@@ -32,7 +29,7 @@
       <%= link_to t('menu.sign_in_twitter'), auth_at_provider_path(provider: :twitter) %>
     </div>
     <nav>
-      <ul class="nav navbar-nav pull-right">
+      <ul class="nav navbar-nav navbar-right">
         <li><%= link_to t('menu.all_packs'), packs_path %></li>
         <li><%= link_to t('menu.all_cards'), cards_path %></li>
         <li><%= link_to t('menu.new_pack'), new_pack_path %></li>

@@ -10,7 +10,8 @@ class CardsController < ApplicationController
   end
 
   def create
-    if @card = Card.create_from_pack(current_user, card_params)
+    @card = Card.create_from_pack(current_user, card_params)
+    if @card.save
       redirect_to @card, notice: t('views.cards.flash_messages.card_was_successfully_created')
     else
       render 'new'

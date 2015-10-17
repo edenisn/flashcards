@@ -20,8 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %Y"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+
   date:
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
 
     # Used in date_select and datetime_select
@@ -32,8 +39,19 @@ en:
 
   page_title: 'Flashcards'
 
+  flashcards_greeting_text: 'The best manager Flashcards in the World!'
+  training_link: 'Go to the training page'
+
+  need_to_register_alert: 'Create your personal account, please'
+
+  oauth_user:
+    user_successfully_login: 'Logged in using #{provider.titleize}!'
+    user_successfully_logout: 'You have successfully unlinked your #{provider.titleize} account'
+    user_error_login: 'Error in using #{provider.titleize} account'
+    user_error_logout: 'You do not currently have a linked #{provider.titleize} account'
+
   views:
-    current_user_label: 'You entered as'
+    current_user_label: 'Login as'
     h2_title_class_muted: 'Flashcards'
     show: Show
     edit: Edit
@@ -46,6 +64,7 @@ en:
         h3: 'All Cards'
       new:
         h3: 'New Card'
+        label_tag_new_pack: 'New pack name:'
       show:
         h3: 'Card #'
       edit:
@@ -53,6 +72,7 @@ en:
       flash_messages:
         card_was_successfully_created: 'Card was successfully created'
         card_was_successfully_updated: 'Card was successfully updated'
+        original_text_not_equal_translated_text: 'original_text cannot be equal translated_text'
     packs:
       index:
         h3: 'All Packs'
@@ -71,7 +91,7 @@ en:
       flash_messages:
         user_translated_correct: 'Correct translation'
         user_translated_incorrect: 'Wrong translation'
-        user_translated_with_distance: 'Correct, but some mistake(s) had been made!
+        user_translated_with_distance: 'Correct, but mistake(s) had been made!
                                         Original text: #{@card.original_text}, and you entered: #{review_params[:user_translation]}'
     registration:
       h3: 'Sign up'
@@ -100,6 +120,7 @@ en:
         original_text: 'Original text'
         translated_text: 'Translate'
         review_date: 'Created at'
+        pack_id: 'Select pack'
       pack:
         name: 'Pack name'
 
