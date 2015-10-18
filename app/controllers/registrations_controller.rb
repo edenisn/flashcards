@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       auto_login(@user)
-      redirect_to root_url, notice: "Добро пожаловать!"
+      redirect_to root_url, notice: t('views.registration.flash_messages.user_successfully_created')
     else
       render :new
     end

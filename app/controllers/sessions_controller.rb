@@ -7,16 +7,16 @@ class SessionsController < ApplicationController
 
   def create
     if @user = login(session_params[:email], session_params[:password])
-      redirect_back_or_to root_url, notice: "Добро пожаловать!"
+      redirect_back_or_to root_url, notice: t('views.session.flash_messages.user_successfully_login')
     else
-      flash.now.alert = 'Неверный email или пароль'
+      flash.now.alert = t('views.session.flash_messages.wrong_email_or_password')
       render :new
     end
   end
 
   def destroy
     logout
-    redirect_to root_url, notice: "До свидания!"
+    redirect_to root_url, notice: t('views.session.flash_messages.user_successfully_logout')
   end
 
   private

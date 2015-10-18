@@ -4,4 +4,5 @@ def login(email, password)
   fill_in :session_email, with: email
   fill_in :session_password, with: password
   click_button "Войти"
+  page.save_screenshot
 end

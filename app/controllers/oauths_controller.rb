@@ -10,16 +10,16 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
-      redirect_to root_path, notice: "Вы вошли в Ваш #{provider.titleize} аккаунт"
+      redirect_to root_path, notice: t('oauth_user.user_successfully_login')
     else
       begin
         @user = create_from(provider)
 
         reset_session # protect from session fixation attack
         auto_login(@user)
-        redirect_to root_path, notice: "Вы вошли в Ваш #{provider.titleize} аккаунт"
+        redirect_to root_path, notice: t('oauth_user.user_successfully_login')
       rescue
-        redirect_to root_path, notice: "Ошибка при входе в Ваш #{provider.titleize} аккаунт"
+        redirect_to root_path, notice: t('oauth_user.user_error_login')
       end
     end
 
@@ -31,9 +31,9 @@ class OauthsController < ApplicationController
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
       authentication.destroy
-      flash[:notice] = "Вы успешно вышли из Вашего #{provider.titleize} аккаунта"
+      flash[:notice] = t('oauth_user.user_successfully_logout')
     else
-      flash[:alert] = "Возникли проблемы при выходе из Вашего #{provider.titleize} аккаунта"
+      flash[:alert] = t('oauth_user.user_error_logout')
     end
 
     redirect_to root_path

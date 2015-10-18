@@ -1,6 +1,6 @@
-<h3>Колода #<%= @pack.id %></h3>
+<h3><%= t('views.packs.show.h3') %><%= @pack.id %></h3>
 <p>
-  <label>Имя колоды:</label>
+  <label><%= Pack.human_attribute_name(:name) %></label>
   <%= @pack.name %>
 </p>
-<%= link_to 'Назад', packs_path %>
+<%= link_to t('views.back'), packs_path %>

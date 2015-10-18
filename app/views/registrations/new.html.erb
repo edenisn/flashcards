@@ -1,4 +1,4 @@
-<h3>Регистрация:</h3>
+<h3><%= t('views.registration.h3') %></h3>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <%= simple_form_for :registration, url: registrations_path do |f| %>
@@ -14,8 +14,8 @@
   <% end %>
 
   <%= f.error_notification %>
-  <%= f.input :email, label: 'Email:' %>
-  <%= f.input :password, label: 'Пароль:' %>
-  <%= f.input :password_confirmation, label: 'Повторите пароль:' %>
-  <%= f.button :submit, 'Зарегистрироваться' %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.button :submit, t('simple_form.buttons.registration.submit') %>
 <% end %>

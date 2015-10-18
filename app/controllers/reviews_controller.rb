@@ -10,14 +10,13 @@ class ReviewsController < ApplicationController
 
     if translation_result[:result]
       if translation_result[:typos] > 0
-        flash[:notice] = "Правильно, но при переводе совершили опечатку. Будьте внимательнее!
-                          Перевод: #{@card.original_text}, а Вы ввели: #{review_params[:user_translation]}"
+        flash[:notice] = t('views.reviews.flash_messages.user_translated_with_distance')
       else
-        flash[:notice] = "Правильно"
+        flash[:notice] = t('views.reviews.flash_messages.user_translated_correct')
       end
       redirect_to :back
     else
-      redirect_to :back, notice: "Не правильно!"
+      redirect_to :back, notice: t('views.reviews.flash_messages.user_translated_incorrect')
     end
   end
 

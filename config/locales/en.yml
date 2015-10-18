@@ -20,4 +20,125 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %Y"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+
+  date:
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+
+    # Used in date_select and datetime_select
+    order:
+      - :day
+      - :month
+      - :year
+
+  page_title: 'Flashcards'
+
+  flashcards_greeting_text: 'The best manager Flashcards in the World!'
+  training_link: 'Go to the training page'
+
+  need_to_register_alert: 'Create your personal account, please'
+
+  oauth_user:
+    user_successfully_login: 'Logged in using #{provider.titleize}!'
+    user_successfully_logout: 'You have successfully unlinked your #{provider.titleize} account'
+    user_error_login: 'Error in using #{provider.titleize} account'
+    user_error_logout: 'You do not currently have a linked #{provider.titleize} account'
+
+  views:
+    current_user_label: 'Login as'
+    h2_title_class_muted: 'Flashcards'
+    show: Show
+    edit: Edit
+    destroy: Delete
+    are_you_sure: Are you sure?
+    back: Back
+
+    cards:
+      index:
+        h3: 'All Cards'
+      new:
+        h3: 'New Card'
+        label_tag_new_pack: 'New pack name:'
+      show:
+        h3: 'Card #'
+      edit:
+        h3: 'Edit Card'
+      flash_messages:
+        card_was_successfully_created: 'Card was successfully created'
+        card_was_successfully_updated: 'Card was successfully updated'
+        original_text_not_equal_translated_text: 'original_text cannot be equal translated_text'
+    packs:
+      index:
+        h3: 'All Packs'
+        set_default_pack: 'Set default pack'
+      new:
+        h3: 'New Pack'
+      show:
+        h3: 'Pack #'
+      edit:
+        h3: 'Edit Pack'
+      flash_messages:
+        pack_was_successfully_created: 'Pack was successfully created'
+        pack_was_successfully_updated: 'Pack was successfully updated'
+    reviews:
+      nil_cards_label: 'Very good. Open training later'
+      flash_messages:
+        user_translated_correct: 'Correct translation'
+        user_translated_incorrect: 'Wrong translation'
+        user_translated_with_distance: 'Correct, but mistake(s) had been made!
+                                        Original text: #{@card.original_text}, and you entered: #{review_params[:user_translation]}'
+    registration:
+      h3: 'Sign up'
+      flash_messages:
+        user_successfully_created: 'Welcome!'
+    profile:
+      h3: 'Edit account'
+      current_email_label: 'Your current email'
+      change_password_label: 'If you want to change password, please, enter your new password'
+      flash_messages:
+        user_profile_successfully_updated: 'User account successfully updated'
+        user_profile_wrong_updated: 'Something wrong. User account was not updated'
+    session:
+      h3: 'Sign in to your account'
+      flash_messages:
+        user_successfully_login: 'Welcome!'
+        user_successfully_logout: 'Goodbye!'
+        wrong_email_or_password: 'Wrong email or password'
+
+  activerecord:
+    models:
+      card: 'Card'
+      pack: 'Pack'
+    attributes:
+      card:
+        original_text: 'Original text'
+        translated_text: 'Translate'
+        review_date: 'Created at'
+        pack_id: 'Select pack'
+      pack:
+        name: 'Pack name'
+
+  forms:
+    buttons:
+      submit: 'Create/Update'
+
+  menu:
+    edit_profile: 'Edit account'
+    registration: 'Sign up for a new account'
+    login: 'Sign in'
+    logout: 'Sign out'
+    all_packs: 'All Packs'
+    all_cards: 'All Cards'
+    new_pack: 'Add new Pack'
+    new_card: 'Add new Card'
+    sign_in_github: 'Login using Github'
+    sign_in_twitter: 'Login using Twitter'
+    unlink_github: 'Unlink your Github account'
+    unlink_twitter: 'Unlink your Twitter account'
+

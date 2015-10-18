@@ -1,13 +1,13 @@
 <% if @card.nil? %>
-  <p class="text-danger lead">Открывайте тренировщик потом</p>
+  <p class="text-danger lead"><%= t('views.reviews.nil_cards_label') %></p>
 <% else %>
-  <h3>Карточка #<%= @card.id %></h3>
-  <p class="text-info">Перевод:</p>
+  <h3><%= t('views.cards.show.h3') %><%= @card.id %></h3>
+  <p class="text-info"><%= Card.human_attribute_name(:translated_text) %>:</p>
   <%= @card.translated_text %>
   <%= simple_form_for :review, url: reviews_path, method: :post do |f| %>
-    <%= f.input :user_translation, label: "Оригинальный текст:"  %>
+    <%= f.input :user_translation %>
     <%= f.hidden_field :card_id, value: @card.id %>
-    <%= f.button :submit, "Проверить" %>
+    <%= f.button :submit, t('simple_form.buttons.review.submit') %>
   <% end %>
   <br />
   <p class="text-danger lead"><%= notice %></p>

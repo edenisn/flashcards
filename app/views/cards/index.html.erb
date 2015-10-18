@@ -1,13 +1,13 @@
-<h3>Все карточки</h3>
+<h3><%= t('views.cards.index.h3') %></h3>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Имя колоды</th>
-      <th>Оригинальное слово</th>
-      <th>Перевод</th>
-      <th>Картинка</th>
-      <th>Дата создания</th>
+      <th><%= Pack.human_attribute_name(:name) %></th>
+      <th><%= Card.human_attribute_name(:original_text) %></th>
+      <th><%= Card.human_attribute_name(:translated_text) %></th>
+      <th><%= Card.human_attribute_name(:image) %></th>
+      <th><%= Card.human_attribute_name(:review_date) %></th>
       <th></th>
       <th></th>
     </tr>
@@ -20,11 +20,11 @@
         <td><%= card.original_text %></td>
         <td><%= card.translated_text %></td>
         <td><%= card.image_file_name %></td>
-        <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
-        <td><%= link_to 'Редактировать', edit_card_path(card) %></td>
-        <td><%= link_to 'Удалить', card_path(card),
-                method: :delete,
-                data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= l card.review_date, format: :short %></td>
+        <td><%= link_to t('views.edit'), edit_card_path(card) %></td>
+        <td><%= link_to t('views.destroy'), card_path(card),
+                        method: :delete,
+                        data: { confirm: "#{t('views.are_you_sure')}" } %></td>
       </tr>
     </tbody>
   <% end %>

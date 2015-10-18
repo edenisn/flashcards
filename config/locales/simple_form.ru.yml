@@ -1,0 +1,34 @@
+ru:
+  simple_form:
+    "yes": 'Да'
+    "no": 'Нет'
+    required:
+      text: 'обязательное поле'
+      mark: '*'
+
+    labels:
+      email: 'Email'
+      password: 'Пароль'
+      registration:
+        password_confirmation: 'Повторите ввод пароля'
+      profile:
+        email: 'Новый email'
+        password: 'Новый пароль'
+        password_confirmation: 'Повторите ввод пароля'
+        current_pack_id: 'Выбрать текущую колоду'
+        locale: 'Выбрать язык по умолчанию'
+      review:
+        user_translation: 'Оригинальный текст'
+
+    buttons:
+      registration:
+        submit: 'Создать аккаунт'
+      profile:
+        submit: 'Обновить аккаунт'
+      session:
+        submit: 'Войти'
+      review:
+        submit: 'Проверить'
+
+    error_notification:
+      default_message: "Возникли следующие проблемы:"

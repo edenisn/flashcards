@@ -17,6 +17,7 @@ describe "User" do
       click_link "Все карточки"
       click_link "Редактировать"
       fill_in :card_original_text, with: "qwerty"
+      puts page.body
       select "2013", from: "card_review_date_1i"
       select "1", from: "card_pack_id"
       fill_in :card_new_pack_name, with: "test_qwerty"
@@ -26,14 +27,14 @@ describe "User" do
 
     it "can show all his cards" do
       click_link "Все карточки"
-      expect(page).to have_content "Оригинальное слово"
+      expect(page).to have_content "Оригинальный текст"
     end
 
     it "can add card" do
-      click_link "Добавить карточку"
+      click_link "Новая карточка"
       fill_in :card_original_text, with: "Card"
       fill_in :card_translated_text, with: "Карточка"
-      select "September", from: "card_review_date_2i"
+      select "Сентябрь", from: "card_review_date_2i"
       select "1", from: "card_review_date_3i"
       select "1", from: "card_pack_id"
       fill_in :card_new_pack_name, with: "test_pack"
@@ -52,7 +53,7 @@ describe "User" do
     end
 
     it "can't see cards that owned by other users" do
-      click_link "Все карточки"
+      click_link "All Cards"
       expect(page).not_to have_content "city"
     end
   end
@@ -65,22 +66,22 @@ describe "User" do
 
     it "can't show all packs" do
       click_link "Все колоды"
-      expect(page).to have_content "Необходима регистрация"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
 
     it "can't add pack" do
-      click_link "Добавить колоду"
-      expect(page).to have_content "Необходима регистрация"
+      click_link "Новая колода"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
 
     it "can't show all cards" do
       click_link "Все карточки"
-      expect(page).to have_content "Необходима регистрация"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
 
     it "can't add card" do
-      click_link "Добавить карточку"
-      expect(page).to have_content "Необходима регистрация"
+      click_link "Новая карточка"
+      expect(page).to have_content "Необходимо зарегистрироваться на сайте"
     end
   end
 

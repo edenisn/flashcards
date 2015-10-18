@@ -1,4 +1,4 @@
-<h3>Редактирование карточки</h3>
+<h3><%= t('views.cards.edit.h3') %></h3>
 <%= render "form", card: @card %>
-<%= link_to 'Назад', cards_path %>
+<%= link_to t('views.back'), cards_path %>
 <p id="notice"><%= notice %></p>

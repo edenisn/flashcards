@@ -15,6 +15,8 @@ gem "paperclip", "~> 4.3"
 gem 'aws-sdk', '< 2.0'
 # Use for Simple Rails app configuration
 gem 'figaro'
+# locale in user browser
+gem 'http_accept_language', '~> 2.0.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -63,5 +65,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'timecop'
+  #gem 'poltergeist', '~> 1.6.0'
+  gem 'selenium-webdriver'
 end
 

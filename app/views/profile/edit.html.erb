@@ -1,4 +1,4 @@
-<h3>Редактирование профиля:</h3>
+<h3><%= t('views.profile.h3') %></h3>
 <p class="text-danger"><%= notice %></p>
 <p class="text-danger"><%= alert %></p>
 <%= simple_form_for :profile, url: profile_path(current_user), method: :patch do |f| %>
@@ -14,19 +14,20 @@
   <% end %>
 
   <%= f.error_notification %>
-  <p class="text-info">Ваш текущий email <%= current_user.email %></p>
-  <%= f.input :email, label: 'Новый email:' %>
-  <p class="text-info">Для смены пароля ведите Ваш новый пароль</p>
-  <%= f.input :password, label: 'Новый пароль:' %>
-  <%= f.input :password_confirmation, label: 'Повторите ввод нового пароля:' %>
-  <%= f.input :current_pack_id, collection: current_user.packs.all, label: 'Выбрать текущую колоду' %>
-  <%= f.button :submit, 'Обновить' %>
+  <p class="text-info"><%= t('views.profile.current_email_label') %>: <%= current_user.email %></p>
+  <%= f.input :email %>
+  <p class="text-info"><%= t('views.profile.change_password_label') %></p>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :current_pack_id, collection: current_user.packs.all %>
+  <%= f.input :locale, collection: I18n.available_locales, selected: current_user.locale %>
+  <%= f.button :submit, t('simple_form.buttons.profile.submit') %>
 <% end %>
 <p>
   <% if current_user.has_linked_github? %>
-    <%= link_to 'Выйти из Github аккаунта', delete_oauth_path('github'), method: :delete %> |
+    <%= link_to t('menu.unlink_github'), delete_oauth_path('github'), method: :delete %> |
   <% end %>
   <% if current_user.has_linked_twitter? %>
-    <%= link_to 'Выйти из Twitter аккаунта', delete_oauth_path('twitter'), method: :delete %>
+    <%= link_to t('menu.unlink_twitter'), delete_oauth_path('twitter'), method: :delete %>
   <% end %>
 </p>
