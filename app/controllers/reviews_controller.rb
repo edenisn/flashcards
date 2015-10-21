@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   def create
     @card = current_user.cards.find(review_params[:card_id])
 
-    if @card.verify_translation(review_params[:user_translation], review_params[:translate_time])
+    if @card.verify_translation(review_params[:user_translation], review_params[:translation_time])
       redirect_to :back, notice: t('views.reviews.flash_messages.user_translated_correct')
     else
       redirect_to :back, notice: t('views.reviews.flash_messages.user_translated_incorrect')
@@ -15,6 +15,6 @@ class ReviewsController < ApplicationController
 
   private
     def review_params
-      params.require(:review).permit(:card_id, :translate_time, :user_translation)
+      params.require(:review).permit(:card_id, :translation_time, :user_translation)
     end
 end

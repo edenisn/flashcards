@@ -1,10 +1,10 @@
 <script>
     $(document).ready(function() {
-        var start_translate_time = new Date().getTime();
-        $("#review_translate_time").val(start_translate_time);
+        var start_translation_time = new Date().getTime();
+        $("#review_translate_time").val(start_translation_time);
         $("form").submit(function() {
             current_time = new Date().getTime();
-            $("#review_translate_time").val((current_time - start_translate_time)/1000);
+            $("#review_translation_time").val((current_time - start_translation_time)/1000);
         });
     });
 </script>
@@ -16,7 +16,7 @@
   <%= @card.translated_text %>
   <%= simple_form_for :review, url: reviews_path, method: :post do |f| %>
     <%= f.input :user_translation %>
-    <%= f.hidden_field :translate_time %>
+    <%= f.hidden_field :translation_time %>
     <%= f.hidden_field :card_id, value: @card.id %>
     <%= f.button :submit, t('simple_form.buttons.review.submit') %>
   <% end %>

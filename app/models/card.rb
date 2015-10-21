@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, :review_date, presence: true
 
   validate :original_text_cannot_be_equal_translated_text
-  
+
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
@@ -40,19 +40,17 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def verify_translation(user_translation, translate_time)
+  def verify_translation(user_translation, translation_time)
+    time = translation_time.to_i
+
+    result = transform_string(original_text) == transform_string(user_translation)
+
+    quantity_of_response = result ? SM2CardsReviewer.translating_card_time(time) : 0
+
     sm2 = SM2CardsReviewer.new(self.easiness_factor, self.number_repetitions,
                                self.repetition_interval, self.review_date)
-    time = translate_time.to_i
-    quantity_of_response = SM2CardsReviewer.translating_card_time(time)
 
-    if transform_string(original_text) == transform_string(user_translation)
-      sm2.processing_count_result(quantity_of_response)
-      result = true
-    else
-      sm2.processing_count_result(0) # complete blackout for quality of response even if 1 or 2
-      result = false
-    end
+    sm2.processing_count_result(quantity_of_response)
 
     update(easiness_factor: sm2.easiness_factor,
            number_repetitions: sm2.number_repetitions,
