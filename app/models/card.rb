@@ -13,9 +13,7 @@ class Card < ActiveRecord::Base
   validates :original_text, :translated_text, :review_date, presence: true
 
   validate :original_text_cannot_be_equal_translated_text
-
-  NORMAL_TIME_FOR_TRANSLATE = 15
-
+  
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
@@ -48,10 +46,7 @@ class Card < ActiveRecord::Base
     time = translate_time.to_i
     quantity_of_response = SM2CardsReviewer.translating_card_time(time)
 
-    time_interval = time > 0 && time <= NORMAL_TIME_FOR_TRANSLATE || time > NORMAL_TIME_FOR_TRANSLATE
-    translation_compare_result = transform_string(original_text) == transform_string(user_translation)
-
-    if translation_compare_result && time_interval
+    if transform_string(original_text) == transform_string(user_translation)
       sm2.processing_count_result(quantity_of_response)
       result = true
     else
