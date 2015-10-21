@@ -14,6 +14,8 @@ class Card < ActiveRecord::Base
 
   validate :original_text_cannot_be_equal_translated_text
 
+  NORMAL_TIME_FOR_TRANSLATE = 15
+
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
@@ -44,35 +46,24 @@ class Card < ActiveRecord::Base
     sm2 = SM2CardsReviewer.new(self.easiness_factor, self.number_repetitions,
                                self.repetition_interval, self.review_date)
     time = translate_time.to_i
+    quantity_of_response = SM2CardsReviewer.translating_card_time(time)
 
-    if (transform_string(original_text) == transform_string(user_translation)) && (time > 0 && time <=15)
-      sm2.processing_count_result(SM2CardsReviewer.translating_card_time(time))
-
-      update(easiness_factor: sm2.easiness_factor,
-             number_repetitions: sm2.number_repetitions,
-             repetition_interval: sm2.repetition_interval,
-             review_date: sm2.review_date)
-
+    if (transform_string(original_text) == transform_string(user_translation)) &&
+        (time > 0 && time <= NORMAL_TIME_FOR_TRANSLATE)
+      sm2.processing_count_result(quantity_of_response)
       true
-    elsif (transform_string(original_text) == transform_string(user_translation)) && time > 15
-      sm2.processing_count_result(SM2CardsReviewer.translating_card_time(time))
-
-      update(easiness_factor: sm2.easiness_factor,
-             number_repetitions: sm2.number_repetitions,
-             repetition_interval: sm2.repetition_interval,
-             review_date: sm2.review_date)
-
+    elsif (transform_string(original_text) == transform_string(user_translation)) &&
+        time > NORMAL_TIME_FOR_TRANSLATE
+      sm2.processing_count_result(quantity_of_response)
       true
     else
-      sm2.processing_count_result(SM2CardsReviewer.translating_card_time(0))
-
-      update(easiness_factor: sm2.easiness_factor,
-             number_repetitions: sm2.number_repetitions,
-             repetition_interval: sm2.repetition_interval,
-             review_date: sm2.review_date)
-
+      sm2.processing_count_result(0) # complete blackout for quality of response even if 1 or 2
       false
     end
+    update(easiness_factor: sm2.easiness_factor,
+           number_repetitions: sm2.number_repetitions,
+           repetition_interval: sm2.repetition_interval,
+           review_date: sm2.review_date)
   end
 
   private
