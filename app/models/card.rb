@@ -48,14 +48,16 @@ class Card < ActiveRecord::Base
     time = translate_time.to_i
     quantity_of_response = SM2CardsReviewer.translating_card_time(time)
 
-    result = if (transform_string(original_text) == transform_string(user_translation)) &&
-                ((time > 0 && time <= NORMAL_TIME_FOR_TRANSLATE) || time > NORMAL_TIME_FOR_TRANSLATE)
-               sm2.processing_count_result(quantity_of_response)
-               true
-             else
-               sm2.processing_count_result(0) # complete blackout for quality of response even if 1 or 2
-               false
-             end
+    time_interval = time > 0 && time <= NORMAL_TIME_FOR_TRANSLATE || time > NORMAL_TIME_FOR_TRANSLATE
+    translation_compare_result = transform_string(original_text) == transform_string(user_translation)
+
+    if translation_compare_result && time_interval
+      sm2.processing_count_result(quantity_of_response)
+      result = true
+    else
+      sm2.processing_count_result(0) # complete blackout for quality of response even if 1 or 2
+      result = false
+    end
 
     update(easiness_factor: sm2.easiness_factor,
            number_repetitions: sm2.number_repetitions,
