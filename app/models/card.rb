@@ -18,9 +18,8 @@ class Card < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..5.megabytes }
 
-  # time intervals for review cards in Leitner system
-  TIME_INTERVALS = [12.hour, 3.day, 7.day, 14.day, 1.month]
-  MAX_TIME_INTERVAL = 5
+  # after each repetition access the quality of repetition response in 0-5 grade scale
+  QUALITY_OF_RESPONSE = [0, 1, 2, 3, 4, 5]
 
   def self.create_from_pack(user, card_params)
     pack_name = card_params.delete(:new_pack_name)
@@ -44,30 +43,54 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def verify_translation(user_translation)
-    typos = Text::Levenshtein.distance(transform_string(original_text), transform_string(user_translation))
-    if typos < 3
-      processing_success_translation_update
-      { result: true, typos: typos }
+  def verify_translation(user_translation, translate_time)
+    sm2 = SM2CardsReviewer.new(self.easiness_factor, self.number_repetitions,
+                               self.repetition_interval, self.review_date)
+    time = translate_time.to_i
+
+    if (transform_string(original_text) == transform_string(user_translation)) && (time > 0 && time <=15)
+      sm2.processing_count_result(translating_card_time(time))
+
+      update(easiness_factor: sm2.easiness_factor,
+             number_repetitions: sm2.number_repetitions,
+             repetition_interval: sm2.repetition_interval,
+             review_date: sm2.review_date)
+
+      true
+    elsif (transform_string(original_text) == transform_string(user_translation)) && time > 15
+      sm2.processing_count_result(translating_card_time(time))
+
+      update(easiness_factor: sm2.easiness_factor,
+             number_repetitions: sm2.number_repetitions,
+             repetition_interval: sm2.repetition_interval,
+             review_date: sm2.review_date)
+
+      true
     else
-      processing_failure_translation_update
-      { result: false, typos: typos }
+      sm2.processing_count_result(translating_card_time(0))
+
+      update(easiness_factor: sm2.easiness_factor,
+             number_repetitions: sm2.number_repetitions,
+             repetition_interval: sm2.repetition_interval,
+             review_date: sm2.review_date)
+
+      false
     end
   end
 
-  def processing_success_translation_update
-    if self.correct_counter == MAX_TIME_INTERVAL
-      update(review_date: DateTime.now + TIME_INTERVALS[MAX_TIME_INTERVAL - 1], wrong_counter: 0)
+  def translating_card_time(translate_time)
+    if translate_time > 0 && translate_time <= 10
+      QUALITY_OF_RESPONSE[5] # perfect response
+    elsif translate_time > 10 && translate_time <= 15
+      QUALITY_OF_RESPONSE[4] # correct response after a hesitation
+    elsif translate_time > 15 && translate_time <= 20
+      QUALITY_OF_RESPONSE[3] # correct response recalled with serious difficulty
+    elsif translate_time > 20 && translate_time <= 25
+      QUALITY_OF_RESPONSE[2] # incorrect response
+    elsif translate_time > 25 && translate_time <= 30
+      QUALITY_OF_RESPONSE[1] # incorrect response
     else
-      update(review_date: DateTime.now + TIME_INTERVALS[correct_counter],
-             correct_counter: correct_counter + 1, wrong_counter: 0)
-    end
-  end
-
-  def processing_failure_translation_update
-    self.increment!(:wrong_counter)
-    if self.wrong_counter == 3 # wrong translation card
-      update(review_date: DateTime.now + 12.hour, wrong_counter: 0, correct_counter: 0)
+      QUALITY_OF_RESPONSE[0] # complete blackout
     end
   end
 

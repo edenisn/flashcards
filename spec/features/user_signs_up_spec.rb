@@ -5,7 +5,7 @@ describe "User sign up" do
   let!(:user) { FactoryGirl.create(:user) }
 
   it "with valid email and password" do
-    login('person1@example.com', 'password')
+    login("person1@example.com", "password")
     expect(page).to have_content('Выйти')
   end
 

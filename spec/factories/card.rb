@@ -4,8 +4,9 @@ FactoryGirl.define do
     original_text 'Fruit'
     translated_text 'Фрукт'
     review_date DateTime.now
-    wrong_counter 0
-    correct_counter 0
+    easiness_factor 2.5
+    number_repetitions 0
+    repetition_interval 0
     association :pack
   end
 
