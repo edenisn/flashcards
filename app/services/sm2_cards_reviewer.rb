@@ -31,7 +31,7 @@ class SM2CardsReviewer
       end
     end
 
-    @review_date = DateTime.now + 12.hour + @repetition_interval
+    @review_date = DateTime.now + 12.hour + @repetition_interval.floor
   end
 
   private
@@ -40,6 +40,6 @@ class SM2CardsReviewer
     q = quality_of_response
 
     result = ef_old + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
-    result < 1.3 ? 1.3 : result
+    result < 1.3 ? 1.3 : result.round(1)
   end
 end

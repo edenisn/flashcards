@@ -15,7 +15,7 @@ describe 'Check user translation' do
     click_link "Перейти на страницу тренировки"
     fill_in :review_user_translation, with: "test"
     click_button "Проверить"
-    expect(page).to have_content "Правильно"
+    expect(page).to have_content "Открывайте тренировщик потом"
   end
 
   it "is incorrect translation shows for user" do
