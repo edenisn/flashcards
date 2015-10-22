@@ -16,12 +16,12 @@
 //= require_tree .
 
 $(document).ready(function() {
-    var start_translation_time = new Date().getTime();
-    $("#review_translate_time").val(start_translation_time);
-    $("form").submit(function() {
-        current_time = new Date().getTime();
-        $("#review_translation_time").val((current_time - start_translation_time)/1000);
-    });
+  var start_translation_time = new Date().getTime();
+  $("#review_translate_time").val(start_translation_time);
+  $("form").submit(function() {
+    current_time = new Date().getTime();
+    $("#review_translation_time").val((current_time - start_translation_time)/1000);
+  });
 });
 
 

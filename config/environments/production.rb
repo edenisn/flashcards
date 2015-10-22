@@ -19,13 +19,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-      domain: 'heroku.com',
-      address: 'smtp.sendgrid.net',
-      port: '587',
-      user_name: ENV['SENDGRID_USERNAME'],
-      password: ENV['SENDGRID_PASSWORD'],
-      authentication: :plain,
-      enable_starttls_auto: true
+      domain: 'sandbox1170a8e2fdc64c469b86cdb076202d27.mailgun.org',
+      address: 'smtp.mailgun.org',
+      port: 587,
+      user_name: ENV['MAILGUN_SMTP_LOGIN'],
+      password: ENV['MAILGUN_SMTP_PASSWORD'],
+      authentication: :plain
   }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application

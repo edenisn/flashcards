@@ -50,6 +50,7 @@ class SM2CardsReviewer
       ef_old = easiness_factor
       q = quality_of_response
 
+      # http://www.supermemo.com/english/ol/sm2.htm
       result = ef_old + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
       result < 1.3 ? 1.3 : result.round(1)
     end
