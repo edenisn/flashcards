@@ -17,7 +17,6 @@ describe "User" do
       click_link "Все карточки"
       click_link "Редактировать"
       fill_in :card_original_text, with: "qwerty"
-      puts page.body
       select "2013", from: "card_review_date_1i"
       select "1", from: "card_pack_id"
       fill_in :card_new_pack_name, with: "test_qwerty"
