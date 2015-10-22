@@ -2,7 +2,7 @@ class SM2CardsReviewer
   attr_accessor :easiness_factor, :number_repetitions, :repetition_interval, :review_date
 
   # after each repetition access the quality of repetition response in 0-5 grade scale
-  QUALITY_OF_RESPONSE = [0, 1, 2, 3, 4, 5]
+  QUALITY_OF_RESPONSE = [0, 3, 4, 5]
 
   def initialize(easiness_factor, number_repetitions, repetition_interval, review_date)
     @easiness_factor = easiness_factor
@@ -13,15 +13,11 @@ class SM2CardsReviewer
 
   def self.translating_card_time(translate_time)
     if translate_time > 0 && translate_time <= 10
-      QUALITY_OF_RESPONSE[5] # perfect response
+      QUALITY_OF_RESPONSE[3] # perfect response
     elsif translate_time > 10 && translate_time <= 15
-      QUALITY_OF_RESPONSE[4] # correct response after a hesitation
+      QUALITY_OF_RESPONSE[2] # correct response after a hesitation
     elsif translate_time > 15 && translate_time <= 20
-      QUALITY_OF_RESPONSE[3] # correct response recalled with serious difficulty
-    elsif translate_time > 20 && translate_time <= 25
-      QUALITY_OF_RESPONSE[2] # incorrect response
-    elsif translate_time > 25 && translate_time <= 30
-      QUALITY_OF_RESPONSE[1] # incorrect response
+      QUALITY_OF_RESPONSE[1] # correct response recalled with serious difficulty
     else
       QUALITY_OF_RESPONSE[0] # complete blackout
     end
@@ -39,14 +35,11 @@ class SM2CardsReviewer
       else
         @number_repetitions += 1
 
-        case @number_repetitions
-          when 1
-            @repetition_interval = 1
-          when 2
-            @repetition_interval = 6
-          else
-            @repetition_interval *= @easiness_factor
-        end
+        @repetition_interval = case @number_repetitions
+                               when 1 then 1
+                               when 2 then 6
+                               else @repetition_interval * @easiness_factor
+                               end
       end
     end
     @review_date = DateTime.now + 12.hour + @repetition_interval.floor
