@@ -36,6 +36,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Cron jobs
 gem 'whenever', require: false
+# Detect and diagnose errors in production
+gem 'raygun4ruby'
+#
+gem 'newrelic_rpm'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
