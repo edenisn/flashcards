@@ -6,10 +6,20 @@ class ReviewsController < ApplicationController
   def create
     @card = current_user.cards.find(review_params[:card_id])
 
-    if @card.verify_translation(review_params[:user_translation], review_params[:translation_time])
-      redirect_to :back, notice: t('views.reviews.flash_messages.user_translated_correct')
-    else
-      redirect_to :back, notice: t('views.reviews.flash_messages.user_translated_incorrect')
+    respond_to do |format|
+      if @result = @card.verify_translation(review_params[:user_translation], review_params[:translation_time])
+        format.html {
+          redirect_to :back,
+          notice: t('views.reviews.flash_messages.user_translated_correct')
+        }
+        format.json { render json: @result }
+      else
+        format.html {
+          redirect_to :back,
+          notice: t('views.reviews.flash_messages.user_translated_incorrect')
+        }
+        format.json { render json: @result }
+      end
     end
   end
 

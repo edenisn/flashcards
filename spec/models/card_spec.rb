@@ -55,19 +55,15 @@ describe Card do
 
   context "check translation for review card" do
     it "is false if translation is not correct" do
-      expect(card.verify_translation("Banana")).to include({ result: false, typos: 6 })
+      expect(card.verify_translation("Banana", "3.21")).to eq false
     end
 
     it "is true if translation is correct" do
-      expect(card.verify_translation("Fruit")).to include({ result: true, typos: 0 })
-    end
-
-    it "is true if translation is correct (Levenshtein)" do
-      expect(card.verify_translation("Fruitt")).to include({ result: true, typos: 1 })
+      expect(card.verify_translation("Fruit", "3.21")).to eq true
     end
 
     it "is true if translation is correct even with small and lower-case letters" do
-      expect(card.verify_translation("fRUiT")).to include({ result: true, typos: 0 })
+      expect(card.verify_translation("fRUiT", "3.21")).to eq true
     end
   end
 

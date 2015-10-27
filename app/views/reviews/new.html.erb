@@ -4,7 +4,8 @@
   <h3><%= t('views.cards.show.h3') %><%= @card.id %></h3>
   <p class="text-info"><%= Card.human_attribute_name(:translated_text) %>:</p>
   <%= @card.translated_text %>
-  <%= simple_form_for :review, url: reviews_path, method: :post do |f| %>
+  <%= simple_form_for :review, url: reviews_path,
+                      method: :post, html: { id: "form-translation" } do |f| %>
     <%= f.input :user_translation %>
     <%= f.hidden_field :translation_time %>
     <%= f.hidden_field :card_id, value: @card.id %>
